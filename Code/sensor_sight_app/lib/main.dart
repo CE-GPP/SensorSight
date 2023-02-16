@@ -15,6 +15,7 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   late GoogleMapController mapController;
 
+  int _currentIndex = 0;
   final LatLng _center = const LatLng(51.509865, -0.118092);
 
   void _onMapCreated(GoogleMapController controller) {
@@ -76,7 +77,7 @@ class _MyAppState extends State<MyApp> {
       home: Scaffold(
         appBar: AppBar(
           title: const Text('SensorSight'),
-          backgroundColor: Colors.green[700],
+          backgroundColor: Colors.black,
         ),
         body: GoogleMap(
           onMapCreated: _onMapCreated,
@@ -85,6 +86,58 @@ class _MyAppState extends State<MyApp> {
             zoom: 11.0,
           ),
           polygons: _polygon,
+        ),
+        bottomNavigationBar: BottomNavigationBar(
+          type: BottomNavigationBarType.fixed,
+          currentIndex: _currentIndex,
+          backgroundColor: Colors.black,
+          //selectedLabelStyle: TextStyle(fontSize: 0),
+          //unselectedLabelStyle: TextStyle(fontSize: 0),
+          onTap: (value) {
+            // Respond to item press.
+            setState(() => _currentIndex = value);
+          },
+          items: [
+            BottomNavigationBarItem(
+              label: 'Device List',
+              icon: Icon(
+                Icons.list_rounded,
+                color: Colors.white,
+                size: 35,
+              ),
+              activeIcon: Icon(
+                Icons.list_rounded,
+                color: Colors.blueAccent,
+                size: 35,
+              ),
+            ),
+            BottomNavigationBarItem(
+              label: 'AR Mode',
+              icon: Icon(
+                Icons.add_a_photo_rounded,
+                color: Colors.white,
+                size: 35,
+              ),
+              activeIcon: Icon(
+                Icons.add_a_photo_rounded,
+                color: Colors.blueAccent,
+                size: 35,
+              ),
+            ),
+            BottomNavigationBarItem(
+              label: 'Live Feeds',
+              icon: Icon(
+                Icons.video_file_rounded,
+                color: Colors.white,
+                size: 35,
+              ),
+              activeIcon: Icon(
+                Icons.video_file_rounded,
+                color: Colors.blueAccent,
+                size: 35,
+              ),
+            ),
+          ],
         ),
       ),
     );
