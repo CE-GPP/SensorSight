@@ -41,33 +41,31 @@ class DeviceCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Card(
-        elevation: 5,
-        color: Theme.of(context).colorScheme.surfaceVariant,
-        clipBehavior: Clip.hardEdge,
-        child: InkWell(
-          splashColor: Colors.blueGrey.withAlpha(30),
-          onTap: () {
-            // Navigator.push(
+    return Card(
+      elevation: 5,
+      //color: Theme.of(context).colorScheme.surfaceVariant,
+      clipBehavior: Clip.hardEdge,
+      child: InkWell(
+        splashColor: Colors.blueGrey.withAlpha(30),
+        onTap: () {
+          // Navigator.push(
 
-            // )
-            debugPrint('Card tapped.');
-          },
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: const [
-              ListTile(
-                leading: CircleAvatar(
-                  backgroundColor: Colors.blueGrey,
-                ),
-                title: Text('Device Name'),
-                subtitle: Text('Device Description'),
-                trailing: Icon(Icons.circle_rounded),
-                iconColor: Colors.green,
+          // )
+          debugPrint('Card tapped.');
+        },
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: const [
+            ListTile(
+              leading: CircleAvatar(
+                backgroundColor: Colors.blueGrey,
               ),
-            ],
-          ),
+              title: Text('Device Name'),
+              subtitle: Text('Device Type'),
+              trailing: Icon(Icons.circle_rounded),
+              iconColor: Colors.green,
+            ),
+          ],
         ),
       ),
     );

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import './screens/device_list.dart';
+import './screens/map_view.dart';
 
 void main() => runApp(const MyApp());
 
@@ -32,62 +33,6 @@ class MyStatefulWidget extends StatefulWidget {
 
 //PRIVATE STATEFUL WIDGET
 class _MyStatefulWidget extends State<MyStatefulWidget> {
-  late GoogleMapController mapController;
-  final LatLng _center = const LatLng(51.509865, -0.118092);
-
-  void _onMapCreated(GoogleMapController controller) {
-    mapController = controller;
-  }
-
-  Set<Polygon> _polygon = HashSet<Polygon>();
-
-  // created list of locations to display polygon
-  List<LatLng> cameraRange1 = [
-    LatLng(51.52303429074671, -0.15491336535643718),
-    LatLng(51.53275609139346, -0.16632884692382),
-    LatLng(51.535642529145015, -0.15079349230956218),
-  ];
-
-  List<LatLng> cameraRange2 = [
-    LatLng(51.5526204206707, -0.14075130175780437),
-    LatLng(51.553264181448384, -0.13259738635253093),
-    LatLng(51.54696961131429, -0.13491481494139812),
-  ];
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-
-    _polygon.add(Polygon(
-      // given polygonId
-      polygonId: const PolygonId('1'),
-      // initialize the list of points to display polygon
-      points: cameraRange1,
-      // given color to polygon
-      fillColor: Color.fromARGB(255, 245, 192, 17).withOpacity(0.3),
-      // given border color to polygon
-      strokeColor: Color.fromARGB(255, 255, 251, 0),
-      geodesic: true,
-      // given width of border
-      strokeWidth: 4,
-    ));
-
-    _polygon.add(Polygon(
-      // given polygonId
-      polygonId: const PolygonId('2'),
-      // initialize the list of points to display polygon
-      points: cameraRange2,
-      // given color to polygon
-      fillColor: Color.fromARGB(255, 212, 121, 17).withOpacity(0.3),
-      // given border color to polygon
-      strokeColor: Color.fromARGB(255, 253, 6, 6),
-      geodesic: true,
-      // given width of border
-      strokeWidth: 4,
-    ));
-  }
-
   int _selectedIndex = 0;
 
   static const TextStyle optionStyle =
@@ -95,10 +40,7 @@ class _MyStatefulWidget extends State<MyStatefulWidget> {
 
   static const List<Widget> _widgetOptions = <Widget>[
     // Index 0
-    Text(
-      'Index 0: Home',
-      style: optionStyle,
-    ),
+    MapView(),
     // Index 1
     DeviceCard(),
     // Index 2
@@ -127,7 +69,7 @@ class _MyStatefulWidget extends State<MyStatefulWidget> {
           title: const Text('SensorSight'),
           backgroundColor: Colors.blueGrey[400],
         ),
-        body: Center(
+        body: Container(
           child: _widgetOptions.elementAt(_selectedIndex),
         ),
 
