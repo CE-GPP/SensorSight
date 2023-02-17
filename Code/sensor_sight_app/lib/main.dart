@@ -3,19 +3,36 @@ import 'dart:collection';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
+import './screens/device_list.dart';
+
 void main() => runApp(const MyApp());
 
-class MyApp extends StatefulWidget {
+//STATELESS WIDGET
+class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
+  static const String _title = 'SensorSight App';
+
   @override
-  State<MyApp> createState() => _MyAppState();
+  Widget build(BuildContext context) {
+    return const MaterialApp(
+      title: _title,
+      home: MyStatefulWidget(),
+    );
+  }
 }
 
-class _MyAppState extends State<MyApp> {
-  late GoogleMapController mapController;
+//STATEFUL WIDGET
+class MyStatefulWidget extends StatefulWidget {
+  const MyStatefulWidget({super.key});
 
-  int _currentIndex = 0;
+  @override
+  State<MyStatefulWidget> createState() => _MyStatefulWidget();
+}
+
+//PRIVATE STATEFUL WIDGET
+class _MyStatefulWidget extends State<MyStatefulWidget> {
+  late GoogleMapController mapController;
   final LatLng _center = const LatLng(51.509865, -0.118092);
 
   void _onMapCreated(GoogleMapController controller) {
@@ -44,7 +61,7 @@ class _MyAppState extends State<MyApp> {
 
     _polygon.add(Polygon(
       // given polygonId
-      polygonId: PolygonId('1'),
+      polygonId: const PolygonId('1'),
       // initialize the list of points to display polygon
       points: cameraRange1,
       // given color to polygon
@@ -58,7 +75,7 @@ class _MyAppState extends State<MyApp> {
 
     _polygon.add(Polygon(
       // given polygonId
-      polygonId: PolygonId('2'),
+      polygonId: const PolygonId('2'),
       // initialize the list of points to display polygon
       points: cameraRange2,
       // given color to polygon
@@ -71,71 +88,90 @@ class _MyAppState extends State<MyApp> {
     ));
   }
 
+  int _selectedIndex = 0;
+
+  static const TextStyle optionStyle =
+      TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
+
+  static const List<Widget> _widgetOptions = <Widget>[
+    // Index 0
+    Text(
+      'Index 0: Home',
+      style: optionStyle,
+    ),
+    // Index 1
+    DeviceCard(),
+    // Index 2
+    Text(
+      'Index 2: AR Mode',
+      style: optionStyle,
+    ),
+    // Index 3
+    Text(
+      'Index 3: Live Feeds',
+      style: optionStyle,
+    ),
+  ];
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
           title: const Text('SensorSight'),
-          backgroundColor: Colors.blueGrey[700],
+          backgroundColor: Colors.blueGrey[400],
         ),
-        body: GoogleMap(
-          onMapCreated: _onMapCreated,
-          initialCameraPosition: CameraPosition(
-            target: _center,
-            zoom: 11.0,
-          ),
-          polygons: _polygon,
+        body: Center(
+          child: _widgetOptions.elementAt(_selectedIndex),
         ),
+
+        // body: GoogleMap(
+        //   onMapCreated: _onMapCreated,
+        //   initialCameraPosition: CameraPosition(
+        //     target: _center,
+        //     zoom: 11.0,
+        //   ),
+        //   polygons: _polygon,
+        // ),
+
         bottomNavigationBar: BottomNavigationBar(
           type: BottomNavigationBarType.fixed,
-          currentIndex: _currentIndex,
-          backgroundColor: Colors.blueGrey[700],
-          onTap: (value) {
-            // Respond to item press.
-            setState(() => _currentIndex = value);
-          },
+          backgroundColor: Colors.blueGrey[400],
           items: const [
+            BottomNavigationBarItem(
+              label: 'Home',
+              icon: Icon(
+                Icons.house_rounded,
+              ),
+            ),
             BottomNavigationBarItem(
               label: 'Device List',
               icon: Icon(
                 Icons.list_rounded,
-                color: Colors.white,
-                size: 35,
-              ),
-              activeIcon: Icon(
-                Icons.list_rounded,
-                color: Colors.blueAccent,
-                size: 35,
               ),
             ),
             BottomNavigationBarItem(
               label: 'AR Mode',
               icon: Icon(
                 Icons.vrpano_rounded,
-                color: Colors.white,
-                size: 35,
-              ),
-              activeIcon: Icon(
-                Icons.vrpano_rounded,
-                color: Colors.blueAccent,
-                size: 35,
               ),
             ),
             BottomNavigationBarItem(
               label: 'Live Feeds',
               icon: Icon(
                 Icons.movie_rounded,
-                color: Colors.white,
-                size: 35,
-              ),
-              activeIcon: Icon(
-                Icons.movie_rounded,
-                color: Colors.blueAccent,
-                size: 35,
               ),
             ),
           ],
+          currentIndex: _selectedIndex,
+          onTap: _onItemTapped,
+          selectedItemColor: Colors.white,
         ),
       ),
     );
