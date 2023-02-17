@@ -77,7 +77,7 @@ class _MyAppState extends State<MyApp> {
       home: Scaffold(
         appBar: AppBar(
           title: const Text('SensorSight'),
-          backgroundColor: Colors.black,
+          backgroundColor: Colors.blueGrey[700],
         ),
         body: GoogleMap(
           onMapCreated: _onMapCreated,
@@ -90,14 +90,12 @@ class _MyAppState extends State<MyApp> {
         bottomNavigationBar: BottomNavigationBar(
           type: BottomNavigationBarType.fixed,
           currentIndex: _currentIndex,
-          backgroundColor: Colors.black,
-          //selectedLabelStyle: TextStyle(fontSize: 0),
-          //unselectedLabelStyle: TextStyle(fontSize: 0),
+          backgroundColor: Colors.blueGrey[700],
           onTap: (value) {
             // Respond to item press.
             setState(() => _currentIndex = value);
           },
-          items: [
+          items: const [
             BottomNavigationBarItem(
               label: 'Device List',
               icon: Icon(
@@ -114,12 +112,12 @@ class _MyAppState extends State<MyApp> {
             BottomNavigationBarItem(
               label: 'AR Mode',
               icon: Icon(
-                Icons.add_a_photo_rounded,
+                Icons.vrpano_rounded,
                 color: Colors.white,
                 size: 35,
               ),
               activeIcon: Icon(
-                Icons.add_a_photo_rounded,
+                Icons.vrpano_rounded,
                 color: Colors.blueAccent,
                 size: 35,
               ),
@@ -127,12 +125,12 @@ class _MyAppState extends State<MyApp> {
             BottomNavigationBarItem(
               label: 'Live Feeds',
               icon: Icon(
-                Icons.video_file_rounded,
+                Icons.movie_rounded,
                 color: Colors.white,
                 size: 35,
               ),
               activeIcon: Icon(
-                Icons.video_file_rounded,
+                Icons.movie_rounded,
                 color: Colors.blueAccent,
                 size: 35,
               ),
