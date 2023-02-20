@@ -3,9 +3,9 @@ import 'dart:collection';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
-import './screens/device_list.dart';
-import './screens/map_view.dart';
-import './screens/device_info.dart';
+import 'widgets/device_list.dart';
+import 'widgets/map_view.dart';
+import 'widgets/device_info.dart';
 
 void main() => runApp(const MyApp());
 
@@ -48,7 +48,7 @@ class _MyStatefulWidget extends State<MyStatefulWidget> {
     DeviceInfo(),
     // Index 3: Live Feeds
     Text(
-      'Index 4: Live Feeds',
+      'Index 4: AR Mode',
       style: optionStyle,
     ),
     Text(
@@ -68,7 +68,7 @@ class _MyStatefulWidget extends State<MyStatefulWidget> {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('SensorSight'),
+          title: Text('SensorSight'),
           backgroundColor: Colors.blueGrey[400],
         ),
         body: Container(

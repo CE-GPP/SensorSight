@@ -82,8 +82,9 @@ class DeviceListBuilder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      //appBar:
-      //AppBar(title: const Text("Device List"), backgroundColor: Colors.blueGrey[200]),
+      // appBar: AppBar(
+      //     title: const Text("Device List"),
+      //     backgroundColor: Colors.blueGrey[200]),
       body: SafeArea(
         child: ListView.builder(
             itemCount: 10,
@@ -94,7 +95,7 @@ class DeviceListBuilder extends StatelessWidget {
               return Card(
                 elevation: 2,
                 child: ListTile(
-                    //contentPadding: const EdgeInsets.fromLTRB(20, 8, 20, 8),
+                    //contentPadding: const EdgeInsets.fromLTRB(20, 4, 20, 4),
                     onTap: () {
                       //Navigator.push(
 
@@ -104,11 +105,11 @@ class DeviceListBuilder extends StatelessWidget {
                     leading: const CircleAvatar(
                       backgroundColor: Colors.blueGrey,
                     ),
-                    subtitle: const Text('Device Type'),
+                    subtitle: const Text('Camera Type'),
                     trailing: const Icon(Icons.circle_rounded),
                     iconColor: Colors
                         .green, // change color based on if device offline or online
-                    title: Text("Device $index")),
+                    title: Text("Camera $index")),
               );
             }),
       ),
