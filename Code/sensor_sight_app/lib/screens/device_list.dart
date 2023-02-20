@@ -36,179 +36,26 @@ import 'package:flutter/material.dart';
 //   }
 // }
 
-class DeviceCard extends StatelessWidget {
-  const DeviceCard({super.key});
+class DeviceListBuilder extends StatelessWidget {
+  const DeviceListBuilder({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Card(
-          elevation: 5,
-          //color: Theme.of(context).colorScheme.surfaceVariant,
-          clipBehavior: Clip.hardEdge,
-          child: InkWell(
-            splashColor: Colors.blueGrey.withAlpha(30),
-            onTap: () {
-              // Navigator.push(
-
-              // )
-              debugPrint('Card tapped.');
-            },
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: const [
-                ListTile(
-                  leading: CircleAvatar(
-                    backgroundColor: Colors.blueGrey,
-                  ),
-                  title: Text('Device Name'),
-                  subtitle: Text('Device Type'),
-                  trailing: Icon(Icons.circle_rounded),
-                  iconColor: Colors.green,
+    return Scaffold(
+      //appBar:
+      //AppBar(title: const Text("Device List"), backgroundColor: Colors.blueGrey[200]),
+      body: ListView.builder(
+          itemCount: 10,
+          itemBuilder: (BuildContext context, int index) {
+            return ListTile(
+                leading: const CircleAvatar(
+                  backgroundColor: Colors.blueGrey,
                 ),
-              ],
-            ),
-          ),
-        ),
-        Card(
-          elevation: 5,
-          //color: Theme.of(context).colorScheme.surfaceVariant,
-          clipBehavior: Clip.hardEdge,
-          child: InkWell(
-            splashColor: Colors.blueGrey.withAlpha(30),
-            onTap: () {
-              // Navigator.push(
-
-              // )
-              debugPrint('Card tapped.');
-            },
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: const [
-                ListTile(
-                  leading: CircleAvatar(
-                    backgroundColor: Colors.blueGrey,
-                  ),
-                  title: Text('Device Name'),
-                  subtitle: Text('Device Type'),
-                  trailing: Icon(Icons.circle_rounded),
-                  iconColor: Colors.green,
-                ),
-              ],
-            ),
-          ),
-        ),
-        Card(
-          elevation: 5,
-          //color: Theme.of(context).colorScheme.surfaceVariant,
-          clipBehavior: Clip.hardEdge,
-          child: InkWell(
-            splashColor: Colors.blueGrey.withAlpha(30),
-            onTap: () {
-              // Navigator.push(
-
-              // )
-              debugPrint('Card tapped.');
-            },
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: const [
-                ListTile(
-                  leading: CircleAvatar(
-                    backgroundColor: Colors.blueGrey,
-                  ),
-                  title: Text('Device Name'),
-                  subtitle: Text('Device Type'),
-                  trailing: Icon(Icons.circle_rounded),
-                  iconColor: Colors.green,
-                ),
-              ],
-            ),
-          ),
-        ),
-        Card(
-          elevation: 5,
-          //color: Theme.of(context).colorScheme.surfaceVariant,
-          clipBehavior: Clip.hardEdge,
-          child: InkWell(
-            splashColor: Colors.blueGrey.withAlpha(30),
-            onTap: () {
-              // Navigator.push(
-
-              // )
-              debugPrint('Card tapped.');
-            },
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: const [
-                ListTile(
-                  leading: CircleAvatar(
-                    backgroundColor: Colors.blueGrey,
-                  ),
-                  title: Text('Device Name'),
-                  subtitle: Text('Device Type'),
-                  trailing: Icon(Icons.circle_rounded),
-                  iconColor: Colors.green,
-                ),
-              ],
-            ),
-          ),
-        ),
-        Card(
-          elevation: 5,
-          //color: Theme.of(context).colorScheme.surfaceVariant,
-          clipBehavior: Clip.hardEdge,
-          child: InkWell(
-            splashColor: Colors.blueGrey.withAlpha(30),
-            onTap: () {
-              // Navigator.push(
-
-              // )
-              debugPrint('Card tapped.');
-            },
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: const [
-                ListTile(
-                  leading: CircleAvatar(
-                    backgroundColor: Colors.blueGrey,
-                  ),
-                  title: Text('Device Name'),
-                  subtitle: Text('Device Type'),
-                  trailing: Icon(Icons.circle_rounded),
-                  iconColor: Colors.green,
-                ),
-              ],
-            ),
-          ),
-        ),
-      ],
+                subtitle: const Text('Device Type'),
+                trailing: const Icon(Icons.circle_rounded),
+                iconColor: Colors.green,
+                title: Text("Device $index"));
+          }),
     );
   }
 }
-
-// class DeviceCard extends StatelessWidget {
-//   const DeviceCard({super.key});
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(
-//         title: const Text('Device List'),
-//         backgroundColor: Colors.blueGrey[700],
-//       ),
-//       body: ListView.builder(
-//           itemCount: 5, //devices.length,
-//           itemBuilder: (BuildContext context, int index) {
-//             return const ListTile(
-//               leading: CircleAvatar(
-//                 backgroundImage: NetworkImage('https://picsum.photos/123/350'),
-//               ),
-//               trailing: Icon(Icons.circle_notifications_rounded),
-//               title: Text('Device #'), //$index
-//             );
-//           }),
-//     );
-//   }
-// }

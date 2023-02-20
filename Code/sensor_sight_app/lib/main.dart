@@ -42,7 +42,7 @@ class _MyStatefulWidget extends State<MyStatefulWidget> {
     // Index 0: Home
     MapView(),
     // Index 1: Device List
-    DeviceCard(),
+    DeviceListBuilder(),
     // Index 2: AR Mode
     Text(
       'Index 2: AR Mode',
