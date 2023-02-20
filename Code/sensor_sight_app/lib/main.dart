@@ -39,16 +39,16 @@ class _MyStatefulWidget extends State<MyStatefulWidget> {
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
 
   static const List<Widget> _widgetOptions = <Widget>[
-    // Index 0
+    // Index 0: Home
     MapView(),
-    // Index 1
+    // Index 1: Device List
     DeviceCard(),
-    // Index 2
+    // Index 2: AR Mode
     Text(
       'Index 2: AR Mode',
       style: optionStyle,
     ),
-    // Index 3
+    // Index 3: Live Feeds
     Text(
       'Index 3: Live Feeds',
       style: optionStyle,
