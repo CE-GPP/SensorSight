@@ -36,6 +36,46 @@ import 'package:flutter/material.dart';
 //   }
 // }
 
+// class DeviceCard extends StatelessWidget {
+//   const DeviceCard({super.key});
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Column(
+//       children: [
+//         Card(
+//           elevation: 5,
+//           //color: Theme.of(context).colorScheme.surfaceVariant,
+//           clipBehavior: Clip.hardEdge,
+//           child: InkWell(
+//             splashColor: Colors.blueGrey.withAlpha(30),
+//             onTap: () {
+//               // Navigator.push(
+
+//               // )
+//               debugPrint('Card tapped.');
+//             },
+//             child: Column(
+//               mainAxisSize: MainAxisSize.min,
+//               children: const [
+//                 ListTile(
+//                   leading: CircleAvatar(
+//                     backgroundColor: Colors.blueGrey,
+//                   ),
+//                   title: Text('Device Name'),
+//                   subtitle: Text('Device Type'),
+//                   trailing: Icon(Icons.circle_rounded),
+//                   iconColor: Colors.green,
+//                 ),
+//               ],
+//             ),
+//           ),
+//         ),
+//       ],
+//     );
+//   }
+// }
+
 class DeviceListBuilder extends StatelessWidget {
   const DeviceListBuilder({Key? key}) : super(key: key);
 
@@ -44,18 +84,71 @@ class DeviceListBuilder extends StatelessWidget {
     return Scaffold(
       //appBar:
       //AppBar(title: const Text("Device List"), backgroundColor: Colors.blueGrey[200]),
-      body: ListView.builder(
-          itemCount: 10,
-          itemBuilder: (BuildContext context, int index) {
-            return ListTile(
-                leading: const CircleAvatar(
-                  backgroundColor: Colors.blueGrey,
-                ),
-                subtitle: const Text('Device Type'),
-                trailing: const Icon(Icons.circle_rounded),
-                iconColor: Colors.green,
-                title: Text("Device $index"));
-          }),
+      body: SafeArea(
+        child: ListView.builder(
+            itemCount: 10,
+            //separatorBuilder: (BuildContext context, int index) =>
+            //const Divider(),
+            clipBehavior: Clip.hardEdge,
+            itemBuilder: (BuildContext context, int index) {
+              return Card(
+                elevation: 2,
+                child: ListTile(
+                    //contentPadding: const EdgeInsets.fromLTRB(20, 8, 20, 8),
+                    onTap: () {
+                      //Navigator.push(
+
+                      //);
+                      debugPrint('Card $index tapped.');
+                    },
+                    leading: const CircleAvatar(
+                      backgroundColor: Colors.blueGrey,
+                    ),
+                    subtitle: const Text('Device Type'),
+                    trailing: const Icon(Icons.circle_rounded),
+                    iconColor: Colors
+                        .green, // change color based on if device offline or online
+                    title: Text("Device $index")),
+              );
+            }),
+      ),
     );
   }
 }
+
+
+
+  ///   Widget build(BuildContext context) {
+  ///     return Scaffold(
+  ///       body: SafeArea(
+  ///         child: ListView.custom(
+  ///           childrenDelegate: SliverChildBuilderDelegate(
+  ///             (BuildContext context, int index) {
+  ///               return KeepAlive(
+  ///                 data: items[index],
+  ///                 key: ValueKey<String>(items[index]),
+  ///               );
+  ///             },
+  ///             childCount: items.length,
+  ///             findChildIndexCallback: (Key key) {
+  ///               final ValueKey<String> valueKey = key as ValueKey<String>;
+  ///               final String data = valueKey.value;
+  ///               return items.indexOf(data);
+  ///             }
+  ///           ),
+  ///         ),
+  ///       ),
+  ///       bottomNavigationBar: BottomAppBar(
+  ///         child: Row(
+  ///           mainAxisAlignment: MainAxisAlignment.center,
+  ///           children: <Widget>[
+  ///             TextButton(
+  ///               onPressed: () => _reverse(),
+  ///               child: const Text('Reverse items'),
+  ///             ),
+  ///           ],
+  ///         ),
+  ///       ),
+  ///     );
+  ///   }
+  /// }

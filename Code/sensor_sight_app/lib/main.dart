@@ -5,6 +5,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import './screens/device_list.dart';
 import './screens/map_view.dart';
+import './screens/device_info.dart';
 
 void main() => runApp(const MyApp());
 
@@ -44,13 +45,14 @@ class _MyStatefulWidget extends State<MyStatefulWidget> {
     // Index 1: Device List
     DeviceListBuilder(),
     // Index 2: AR Mode
-    Text(
-      'Index 2: AR Mode',
-      style: optionStyle,
-    ),
+    DeviceInfo(),
     // Index 3: Live Feeds
     Text(
-      'Index 3: Live Feeds',
+      'Index 4: Live Feeds',
+      style: optionStyle,
+    ),
+    Text(
+      'Index 5: Live Feeds',
       style: optionStyle,
     ),
   ];
@@ -99,6 +101,12 @@ class _MyStatefulWidget extends State<MyStatefulWidget> {
               ),
             ),
             BottomNavigationBarItem(
+              label: 'Device Info',
+              icon: Icon(
+                Icons.device_hub_rounded,
+              ),
+            ),
+            BottomNavigationBarItem(
               label: 'AR Mode',
               icon: Icon(
                 Icons.vrpano_rounded,
@@ -107,7 +115,7 @@ class _MyStatefulWidget extends State<MyStatefulWidget> {
             BottomNavigationBarItem(
               label: 'Live Feeds',
               icon: Icon(
-                Icons.movie_rounded,
+                Icons.camera_rounded,
               ),
             ),
           ],
