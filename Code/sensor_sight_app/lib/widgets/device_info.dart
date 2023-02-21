@@ -4,8 +4,8 @@ class DeviceInfo extends StatelessWidget {
   const DeviceInfo({super.key});
 
   static const TextStyle optionStyle = TextStyle(
-    fontSize: 18,
-    fontWeight: FontWeight.bold,
+    fontSize: 16,
+    fontWeight: FontWeight.normal,
     wordSpacing: 8,
   );
 
@@ -25,21 +25,25 @@ class DeviceInfo extends StatelessWidget {
         Container(
           height: 100,
           color: Colors.red[500],
-          child: const Center(child: Text('CircleAvatar')),
+          child: const Center(
+            child: Icon(Icons.camera_enhance_rounded),
+          ),
         ),
         Container(
           height: 75,
           color: Colors.blue[500],
-          child: const Center(child: Text('Device Name')),
+          child: const Center(
+            child: Text('Device [index]'),
+          ),
         ),
         Container(
           height: 300,
           //color: Colors.green[500],
           child: Card(
-              color: Colors.green[500],
+              color: Colors.blueGrey[50],
               elevation: 2,
               child: Padding(
-                padding: const EdgeInsets.all(20.0),
+                padding: const EdgeInsets.all(25.0),
                 child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
