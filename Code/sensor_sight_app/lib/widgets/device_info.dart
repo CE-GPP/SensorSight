@@ -17,11 +17,11 @@ class DeviceInfo extends StatelessWidget {
     return ListView(
       padding: const EdgeInsets.all(8),
       children: <Widget>[
-        Container(
-          height: 50,
-          color: Colors.orange[600],
-          child: const Center(child: Text('Navigation buttons')),
-        ),
+        // Container(
+        //   height: 50,
+        //   color: Colors.orange[600],
+        //   child: const Center(child: Text('Navigation buttons')),
+        //),
         Container(
           height: 100,
           color: Colors.red[500],
@@ -31,13 +31,21 @@ class DeviceInfo extends StatelessWidget {
         ),
         Container(
           height: 75,
-          color: Colors.blue[500],
-          child: const Center(
-            child: Text('Device [index]'),
+          child: Card(
+            color: Colors.blueGrey[50],
+            child: const Center(
+              child: Text(
+                'Device [index]',
+                style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
           ),
         ),
         Container(
-          height: 300,
+          height: 350,
           //color: Colors.green[500],
           child: Card(
               color: Colors.blueGrey[50],
@@ -75,12 +83,12 @@ class DeviceInfo extends StatelessWidget {
                               onPressed: null,
                               child: Text('Map View')),
                           SizedBox(
-                            width: 10,
+                            width: 15,
                           ),
                           ElevatedButton(
                               //style: ButtonStyle(),
                               onPressed: null,
-                              child: Text('Live Feeds')),
+                              child: Text('Live Feed')),
                         ],
                       ),
                     ]),
