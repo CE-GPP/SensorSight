@@ -2,6 +2,7 @@ import 'dart:collection';
 
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:sensor_sight_app/geolocate_test.dart';
 
 import 'widgets/device_list.dart';
 import 'widgets/map_view.dart';
@@ -19,6 +20,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       title: _title,
+      debugShowCheckedModeBanner: false,
       home: MyStatefulWidget(),
     );
   }
@@ -68,10 +70,32 @@ class _MyStatefulWidget extends State<MyStatefulWidget> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(
           title: Text('SensorSight'),
           backgroundColor: Colors.blueGrey[400],
+          actions: [
+            IconButton(
+              icon: const Icon(Icons.info_rounded),
+              onPressed: () {
+                showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                          title: const Text('About the App'), // change title
+                          content: const Text(
+                              'This app is a demo app for SensorSight.'),
+                          actions: <Widget>[
+                            TextButton(
+                              onPressed: () => Navigator.pop(context),
+                              child: const Text('Learn More'),
+                            )
+                          ]);
+                    });
+              },
+            )
+          ],
         ),
         body: Container(
           child: _widgetOptions.elementAt(_selectedIndex),

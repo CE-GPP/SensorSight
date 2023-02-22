@@ -1,4 +1,8 @@
+import 'dart:collection';
+
 import 'package:flutter/material.dart';
+import 'package:sensor_sight_app/main.dart';
+import 'package:sensor_sight_app/widgets/device_list.dart';
 
 class DeviceInfo extends StatelessWidget {
   const DeviceInfo({super.key});
@@ -22,12 +26,30 @@ class DeviceInfo extends StatelessWidget {
         //   color: Colors.orange[600],
         //   child: const Center(child: Text('Navigation buttons')),
         //),
-        Container(
-          height: 100,
-          color: Colors.red[500],
-          child: const Center(
-            child: Icon(Icons.camera_enhance_rounded),
-          ),
+        Row(
+          children: [
+            Container(
+              height: 100,
+              width: 100,
+              child: Card(
+                color: Colors.blueGrey[100],
+              ),
+            ),
+            Container(
+              height: 100,
+              width: 195,
+              child: Card(
+                color: Colors.blueGrey[200],
+              ),
+            ),
+            Container(
+              height: 100,
+              width: 100,
+              child: Card(
+                color: Colors.blueGrey[300],
+              ),
+            ),
+          ],
         ),
         Container(
           height: 75,
@@ -49,7 +71,7 @@ class DeviceInfo extends StatelessWidget {
           //color: Colors.green[500],
           child: Card(
               color: Colors.blueGrey[50],
-              elevation: 2,
+              //elevation: 2,
               child: Padding(
                 padding: const EdgeInsets.all(25.0),
                 child: Column(
@@ -77,17 +99,28 @@ class DeviceInfo extends StatelessWidget {
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
-                        children: const [
+                        children: [
                           ElevatedButton(
                               //style: ButtonStyle(),
-                              onPressed: null,
-                              child: Text('Map View')),
-                          SizedBox(
+                              onPressed: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => const MyApp()));
+                              },
+                              child: const Text('Map View')),
+                          const SizedBox(
                             width: 15,
                           ),
                           ElevatedButton(
                               //style: ButtonStyle(),
-                              onPressed: null,
+                              onPressed: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            const DeviceListBuilder()));
+                              },
                               child: Text('Live Feed')),
                         ],
                       ),

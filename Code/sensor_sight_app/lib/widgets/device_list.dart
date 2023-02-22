@@ -82,9 +82,9 @@ class DeviceListBuilder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //     title: const Text("Device List"),
-      //     backgroundColor: Colors.blueGrey[200]),
+      appBar: AppBar(
+          title: const Text("Device List"),
+          backgroundColor: Colors.blueGrey[200]),
       body: SafeArea(
         child: ListView.builder(
             itemCount: 10,
