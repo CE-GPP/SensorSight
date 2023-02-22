@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:sensor_sight_app/main.dart';
 import 'package:sensor_sight_app/widgets/device_list.dart';
 
+//test
 class DeviceInfo extends StatelessWidget {
   const DeviceInfo({super.key});
 
