@@ -1,0 +1,28 @@
+version: "3"
+services:
+  node:
+    image: "node:18"
+    user: "root"
+    restart: unless-stopped
+    working_dir: /home/node/app
+    environment:
+      - NODE_ENV=production
+    volumes:
+      - ./SensorSight/Code/web_api:/home/node/app
+    ports:
+      - "4000:4000"
+    command: bash -c "npm install -g nodemon && npm i && sed -i 's/localhost:4000/sensorsight-api.yaman-ka.com/g' swagger.js && sed -i \"s/'http', 'https'/'https'/g\" >
+
+  mysql:
+    image: "mysql:5.7"
+    environment:
+      - MYSQL_DATABASE="db"
+      - MYSQL_USER="CHAGE HERE"
+      - MYSQL_PASSWORD="CHAGE HERE"
+      - MYSQL_ROOT_PASSWORD="CHAGE HERE"
+    ports:
+      - "3306:3306"
+    expose:
+      - "3306"
+    volumes:
+      - ./mysql:/var/lib/mysql
