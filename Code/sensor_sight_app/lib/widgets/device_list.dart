@@ -82,9 +82,9 @@ class DeviceListBuilder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-          title: const Text("Device List"),
-          backgroundColor: Colors.blueGrey[200]),
+      // appBar: AppBar(
+      //     title: const Text("Device List"),
+      //     backgroundColor: Colors.blueGrey[200]),
       body: SafeArea(
         child: ListView.builder(
             itemCount: 10,
@@ -95,7 +95,7 @@ class DeviceListBuilder extends StatelessWidget {
               return Card(
                 elevation: 2,
                 child: ListTile(
-                    //contentPadding: const EdgeInsets.fromLTRB(20, 4, 20, 4),
+                    contentPadding: const EdgeInsets.fromLTRB(20, 4, 20, 4),
                     onTap: () {
                       //Navigator.push(
 

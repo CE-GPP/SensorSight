@@ -53,15 +53,12 @@ class _MyStatefulWidget extends State<MyStatefulWidget> {
     // Index 2: Device Info
     DeviceInfo(),
     // Index 3: Geolocate Test
-    Text(
-      'Geolocate Test',
-      style: optionStyle,
-    ),
+    GeoPage(),
     // Index 4: Live Feeds
-    Text(
-      'Index 5: Live Feeds',
-      style: optionStyle,
-    ),
+    // Text(
+    //   'Index 5: Live Feeds',
+    //   style: optionStyle,
+    // ),
   ];
 
   void _onItemTapped(int index) {
@@ -80,17 +77,17 @@ class _MyStatefulWidget extends State<MyStatefulWidget> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(55, 0, 0, 0),
+                padding: EdgeInsetsDirectional.fromSTEB(48, 0, 0, 0),
                 child: Image.asset(
                   'assets/images/ar_icon.png',
-                  height: 45,
+                  height: 35,
                 ),
               ),
               Container(
                 padding: const EdgeInsets.all(10.0),
                 child: const Text('SensorSight',
                     style: TextStyle(
-                        fontSize: 24,
+                        fontSize: 20,
                         fontWeight: FontWeight.bold,
                         color: Colors.black)),
               )
@@ -99,7 +96,9 @@ class _MyStatefulWidget extends State<MyStatefulWidget> {
           backgroundColor: Colors.blueGrey[400],
           actions: [
             IconButton(
-              icon: const Icon(Icons.info_rounded),
+              icon: const Icon(
+                Icons.info_rounded,
+              ),
               onPressed: () {
                 showDialog(
                     context: context,
