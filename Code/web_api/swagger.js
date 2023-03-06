@@ -17,11 +17,22 @@ const doc = {
     produces: ['application/json'],// tells swagger the type of output content
     tags: [//a given goal, groups of endpoints
         {
-            "name": "Path Planning"
+            "name": "Cameras"
         }
     ],
     definitions: {
-        
+        Camera: {
+          "360": true,
+          "id": 1,
+          "name": "OPS-1",
+          "lon": 51.5386,
+          "lat": -0.010005,
+          "elevation": 5,
+          "manufacturer": "Hikvision",
+          "series": "iDS-2CD7A46G0-IZHS(Y)(R)",
+          "resolution": "4MP",
+          "feed_link": "link",
+          "image_link": "link"}
     }}
             
     
