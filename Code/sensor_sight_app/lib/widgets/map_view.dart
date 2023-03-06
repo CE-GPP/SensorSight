@@ -13,7 +13,8 @@ class MapView extends StatefulWidget {
 class _MapViewState extends State<MapView> {
   @override
   late GoogleMapController mapController;
-  final LatLng _center = const LatLng(51.509865, -0.118092);
+  final LatLng _center =
+      const LatLng(51.544573726436724, -0.013808467855178409);
 
   void _onMapCreated(GoogleMapController controller) {
     mapController = controller;
@@ -74,8 +75,9 @@ class _MapViewState extends State<MapView> {
       onMapCreated: _onMapCreated,
       initialCameraPosition: CameraPosition(
         target: _center,
-        zoom: 11.0,
+        zoom: 14.0,
       ),
+      myLocationEnabled: true,
       polygons: _polygon,
     );
   }

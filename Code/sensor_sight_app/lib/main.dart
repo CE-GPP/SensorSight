@@ -3,6 +3,8 @@ import 'dart:collection';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:sensor_sight_app/geolocate_test.dart';
+import 'package:ar_flutter_plugin/ar_flutter_plugin.dart';
+import 'package:sensor_sight_app/widgets/ar_core_debug.dart';
 
 import 'widgets/device_list.dart';
 import 'widgets/map_view.dart';
@@ -48,17 +50,15 @@ class _MyStatefulWidget extends State<MyStatefulWidget> {
     MapView(),
     // Index 1: Device List
     DeviceListBuilder(),
-    // Index 2: AR Mode
+    // Index 2: Device Info
     DeviceInfo(),
-    // Index 3: Live Feeds
-    Text(
-      'Index 4: AR Mode',
-      style: optionStyle,
-    ),
-    Text(
-      'Index 5: Live Feeds',
-      style: optionStyle,
-    ),
+    // Index 3: Geolocate Test
+    GeoPage(),
+    // Index 4: Live Feeds
+    // Text(
+    //   'Index 5: Live Feeds',
+    //   style: optionStyle,
+    // ),
   ];
 
   void _onItemTapped(int index) {
@@ -73,11 +73,32 @@ class _MyStatefulWidget extends State<MyStatefulWidget> {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(
-          title: Text('SensorSight'),
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(48, 0, 0, 0),
+                child: Image.asset(
+                  'assets/images/ar_icon.png',
+                  height: 35,
+                ),
+              ),
+              Container(
+                padding: const EdgeInsets.all(10.0),
+                child: const Text('SensorSight',
+                    style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black)),
+              )
+            ],
+          ),
           backgroundColor: Colors.blueGrey[400],
           actions: [
             IconButton(
-              icon: const Icon(Icons.info_rounded),
+              icon: const Icon(
+                Icons.info_rounded,
+              ),
               onPressed: () {
                 showDialog(
                     context: context,
@@ -138,12 +159,12 @@ class _MyStatefulWidget extends State<MyStatefulWidget> {
                 Icons.vrpano_rounded,
               ),
             ),
-            BottomNavigationBarItem(
-              label: 'Live Feeds',
-              icon: Icon(
-                Icons.camera_rounded,
-              ),
-            ),
+            // BottomNavigationBarItem(
+            //   label: 'Live Feeds',
+            //   icon: Icon(
+            //     Icons.camera_rounded,
+            //   ),
+            // ),
           ],
           currentIndex: _selectedIndex,
           onTap: _onItemTapped,
