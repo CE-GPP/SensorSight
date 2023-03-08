@@ -41,6 +41,7 @@ dependencies:
   build_runner:
 
   ar_flutter_plugin: ^0.7.3
+  arcore_flutter_plugin: 
 
 
   # The following adds the Cupertino Icons font to your application.
