@@ -204,6 +204,9 @@ class HelloGeoRenderer(val activity: HelloGeoActivity) :
     }
     earthAnchor?.detach()
 
+    var staticLatLng = LatLng(51.5403,-0.008771)
+    var staticAltitude = 3.9
+
     // Place the earth anchor at the same altitude as that of the camera to make it easier to view.
     val cameraGeospatialPose = earth.cameraGeospatialPose
     val altitude = cameraGeospatialPose.altitude - 1
