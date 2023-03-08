@@ -4,8 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:sensor_sight_app/geolocate_test.dart';
 import 'package:ar_flutter_plugin/ar_flutter_plugin.dart';
-import 'package:sensor_sight_app/widgets/ar_core_debug.dart';
-import 'package:sensor_sight_app/widgets/custom_AR.dart';
 import 'package:sensor_sight_app/widgets/device_list_updated.dart';
 
 import 'widgets/map_view.dart';
@@ -54,7 +52,7 @@ class _MyStatefulWidget extends State<MyStatefulWidget> {
     // Index 2: Device Info
     DeviceInfo(),
     // Index 3: Geolocate Test
-    CustomObject(),
+    Placeholder(),
     // Index 4: Live Feeds
     // Text(
     //   'Index 5: Live Feeds',
