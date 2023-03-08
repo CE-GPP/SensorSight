@@ -5,7 +5,7 @@ import 'package:sensor_sight_app/main.dart';
 import 'package:sensor_sight_app/widgets/device_list.dart';
 
 class DeviceInfo extends StatelessWidget {
-  const DeviceInfo({super.key});
+  const DeviceInfo({Key? key}) : super(key: key);
 
   static const TextStyle optionStyle = TextStyle(
     fontSize: 16,
