@@ -17,6 +17,7 @@ package com.google.ar.core.codelabs.hellogeospatial
 
 import android.opengl.Matrix
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import com.google.android.gms.maps.model.LatLng
@@ -216,6 +217,7 @@ class HelloGeoRenderer(val activity: HelloGeoActivity) :
     val qz = 0f
     val qw = 1f
     earthAnchor = earth.createAnchor(latLng.latitude, latLng.longitude, altitude, qx, qy, qz, qw)
+    Toast.makeText(activity, "latitude: ${latLng.latitude} longitude:{latLng.longitude} altitude: {$altitude}", Toast.LENGTH_LONG)
 
     activity.view.mapView?.earthMarker?.apply {
       position = latLng
