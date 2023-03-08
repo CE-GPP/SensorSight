@@ -1,11 +1,7 @@
-import 'dart:collection';
-
 import 'package:flutter/material.dart';
-import 'package:sensor_sight_app/main.dart';
-import 'package:sensor_sight_app/widgets/device_list.dart';
 
 class DeviceInfo extends StatelessWidget {
-  const DeviceInfo({super.key});
+  const DeviceInfo({Key? key}) : super(key: key);
 
   static const TextStyle optionStyle = TextStyle(
     fontSize: 16,
@@ -67,66 +63,43 @@ class DeviceInfo extends StatelessWidget {
           ),
         ),
         Container(
-          height: 350,
-          //color: Colors.green[500],
-          child: Card(
+            height: 350,
+            //color: Colors.green[500],
+            child: Card(
               color: Colors.blueGrey[50],
               //elevation: 2,
               child: Padding(
                 padding: const EdgeInsets.all(25.0),
                 child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        'Device: [Device]',
-                        style: optionStyle,
-                      ),
-                      Text(
-                        'Manufacturer: [Manufacturer]',
-                        style: optionStyle,
-                      ),
-                      Text(
-                        'Series: [Series]',
-                        style: optionStyle,
-                      ),
-                      Text(
-                        'Resolution: [Resolution]',
-                        style: optionStyle,
-                      ),
-                      Text(
-                        'Panoramic: [Panoramic]',
-                        style: optionStyle,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          ElevatedButton(
-                              //style: ButtonStyle(),
-                              onPressed: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => const MyApp()));
-                              },
-                              child: const Text('Map View')),
-                          const SizedBox(
-                            width: 15,
-                          ),
-                          ElevatedButton(
-                              //style: ButtonStyle(),
-                              onPressed: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            const DeviceListBuilder()));
-                              },
-                              child: Text('Live Feed')),
-                        ],
-                      ),
-                    ]),
-              )),
-        ),
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Device: [Device]',
+                      style: optionStyle,
+                    ),
+                    Text(
+                      'Manufacturer: [Manufacturer]',
+                      style: optionStyle,
+                    ),
+                    Text(
+                      'Series: [Series]',
+                      style: optionStyle,
+                    ),
+                    Text(
+                      'Resolution: [Resolution]',
+                      style: optionStyle,
+                    ),
+                    Text(
+                      'Panoramic: [Panoramic]',
+                      style: optionStyle,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                    ),
+                  ],
+                ),
+              ),
+            )),
       ],
     );
   }
