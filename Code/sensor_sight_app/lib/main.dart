@@ -49,15 +49,8 @@ class _MyStatefulWidget extends State<MyStatefulWidget> {
     MapView(),
     // Index 1: Device List
     DeviceList(),
-    // Index 2: Device Info
-    DeviceInfo(),
-    // Index 3: Geolocate Test
-    Placeholder(),
-    // Index 4: Live Feeds
-    // Text(
-    //   'Index 5: Live Feeds',
-    //   style: optionStyle,
-    // ),
+    // Index 2: AR Mode
+    GeoPage(),
   ];
 
   void _onItemTapped(int index) {
@@ -146,12 +139,12 @@ class _MyStatefulWidget extends State<MyStatefulWidget> {
                 Icons.list_rounded,
               ),
             ),
-            BottomNavigationBarItem(
-              label: 'Device Info',
-              icon: Icon(
-                Icons.device_hub_rounded,
-              ),
-            ),
+            // BottomNavigationBarItem(
+            //   label: 'Device Info',
+            //   icon: Icon(
+            //     Icons.device_hub_rounded,
+            //   ),
+            // ),
             BottomNavigationBarItem(
               label: 'AR Mode',
               icon: Icon(
