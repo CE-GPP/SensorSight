@@ -13,8 +13,10 @@ class MapView extends StatefulWidget {
 class _MapViewState extends State<MapView> {
   @override
   late GoogleMapController mapController;
-  final LatLng _center =
-      const LatLng(51.544573726436724, -0.013808467855178409);
+  final CameraPosition _center = const CameraPosition(
+    target: LatLng(51.544573726436724, -0.013808467855178409),
+    zoom: 14.5,
+  );
 
   void _onMapCreated(GoogleMapController controller) {
     mapController = controller;
@@ -71,14 +73,16 @@ class _MapViewState extends State<MapView> {
 
   @override
   Widget build(BuildContext context) {
-    return GoogleMap(
-      onMapCreated: _onMapCreated,
-      initialCameraPosition: CameraPosition(
-        target: _center,
-        zoom: 14.0,
+    return Scaffold(
+      body: SafeArea(
+        child: GoogleMap(
+          onMapCreated: _onMapCreated,
+          initialCameraPosition: _center,
+          mapType: MapType.satellite,
+          myLocationEnabled: true,
+          polygons: _polygon,
+        ),
       ),
-      myLocationEnabled: true,
-      polygons: _polygon,
     );
   }
 }
