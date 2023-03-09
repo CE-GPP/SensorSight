@@ -31,7 +31,6 @@ class DeviceList extends StatefulWidget {
   const DeviceList({Key? key}) : super(key: key);
 
   @override
-  // ignore: library_private_types_in_public_api
   _DeviceListState createState() => _DeviceListState();
 }
 
@@ -56,6 +55,8 @@ class _DeviceListState extends State<DeviceList> {
         _cameras = cameras;
       });
     } else {
+      print('Failed to load cameras. Status code: ${response.statusCode}');
+      print('Response body: ${response.body}');
       throw Exception('Failed to load cameras');
     }
   }
@@ -72,12 +73,12 @@ class _DeviceListState extends State<DeviceList> {
             child: InkWell(
               splashColor: Colors.blueGrey.withAlpha(30),
               onTap: () {
-                // Navigator.push(
-                //   context,
-                //   MaterialPageRoute(
-                //     builder: (context) => DeviceInfo(_cameras),
-                //   ),
-                // );
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => DeviceInfo(camera: _cameras[index]),
+                  ),
+                );
                 debugPrint('Card $index tapped.');
               },
               child: ListTile(

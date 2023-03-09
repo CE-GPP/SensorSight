@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:sensor_sight_app/widgets/device_list_updated.dart';
 
 class DeviceInfo extends StatelessWidget {
-  const DeviceInfo({Key? key}) : super(key: key);
+  final Camera camera;
+
+  const DeviceInfo({Key? key, required this.camera}) : super(key: key);
 
   static const TextStyle optionStyle = TextStyle(
     fontSize: 16,
@@ -9,98 +12,141 @@ class DeviceInfo extends StatelessWidget {
     wordSpacing: 8,
   );
 
-  //final ButtonStyle style =
-  //    ElevatedButton.styleFrom(textStyle: const TextStyle(fontSize: 20));
-
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      padding: const EdgeInsets.all(8),
-      children: <Widget>[
-        // Container(
-        //   height: 50,
-        //   color: Colors.orange[600],
-        //   child: const Center(child: Text('Navigation buttons')),
-        //),
-        Row(
-          children: [
-            Container(
-              height: 100,
-              width: 100,
-              child: Card(
-                color: Colors.blueGrey[100],
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(
+        appBar: AppBar(
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(48, 0, 0, 0),
+                child: Image.asset(
+                  'assets/images/ar_icon.png',
+                  height: 35,
+                ),
               ),
-            ),
-            Container(
-              height: 100,
-              width: 195,
-              child: Card(
-                color: Colors.blueGrey[200],
+              Container(
+                padding: const EdgeInsets.all(10.0),
+                child: const Text('SensorSight',
+                    style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black)),
+              )
+            ],
+          ),
+          backgroundColor: Colors.blueGrey[400],
+          actions: [
+            IconButton(
+              icon: const Icon(
+                Icons.info_rounded,
               ),
-            ),
-            Container(
-              height: 100,
-              width: 100,
-              child: Card(
-                color: Colors.blueGrey[300],
-              ),
-            ),
+              onPressed: () {
+                showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                          title: const Text('About the App'), // change title
+                          content: const Text(
+                              'This app is a demo app for SensorSight.'),
+                          actions: <Widget>[
+                            TextButton(
+                              onPressed: () => Navigator.pop(context),
+                              child: const Text('Close'),
+                            )
+                          ]);
+                    });
+              },
+            )
           ],
         ),
-        Container(
-          height: 75,
-          child: Card(
-            color: Colors.blueGrey[50],
-            child: const Center(
-              child: Text(
-                'Device [index]',
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
+        body: ListView(
+          padding: const EdgeInsets.all(8),
+          children: <Widget>[
+            Row(
+              children: [
+                Container(
+                  height: 100,
+                  width: 100,
+                  child: Card(
+                    color: Colors.blueGrey[100],
+                  ),
+                ),
+                Container(
+                  height: 100,
+                  width: 195,
+                  child: Card(
+                    color: Colors.blueGrey[200],
+                  ),
+                ),
+                Container(
+                  height: 100,
+                  width: 100,
+                  child: Card(
+                    color: Colors.blueGrey[300],
+                  ),
+                ),
+              ],
+            ),
+            Container(
+              height: 75,
+              child: Card(
+                color: Colors.blueGrey[50],
+                child: const Center(
+                  child: Text(
+                    'Device [index]',
+                    style: TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                 ),
               ),
             ),
-          ),
+            Container(
+                height: 350,
+                //color: Colors.green[500],
+                child: Card(
+                  color: Colors.blueGrey[50],
+                  //elevation: 2,
+                  child: Padding(
+                    padding: const EdgeInsets.all(25.0),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'Device: [Device]',
+                          style: optionStyle,
+                        ),
+                        Text(
+                          'Manufacturer: [Manufacturer]',
+                          style: optionStyle,
+                        ),
+                        Text(
+                          'Series: [Series]',
+                          style: optionStyle,
+                        ),
+                        Text(
+                          'Resolution: [Resolution]',
+                          style: optionStyle,
+                        ),
+                        Text(
+                          'Panoramic: [Panoramic]',
+                          style: optionStyle,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                        ),
+                      ],
+                    ),
+                  ),
+                )),
+          ],
         ),
-        Container(
-            height: 350,
-            //color: Colors.green[500],
-            child: Card(
-              color: Colors.blueGrey[50],
-              //elevation: 2,
-              child: Padding(
-                padding: const EdgeInsets.all(25.0),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      'Device: [Device]',
-                      style: optionStyle,
-                    ),
-                    Text(
-                      'Manufacturer: [Manufacturer]',
-                      style: optionStyle,
-                    ),
-                    Text(
-                      'Series: [Series]',
-                      style: optionStyle,
-                    ),
-                    Text(
-                      'Resolution: [Resolution]',
-                      style: optionStyle,
-                    ),
-                    Text(
-                      'Panoramic: [Panoramic]',
-                      style: optionStyle,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                    ),
-                  ],
-                ),
-              ),
-            )),
-      ],
+      ),
     );
   }
 }
