@@ -205,8 +205,8 @@ class HelloGeoRenderer(val activity: HelloGeoActivity) :
     }
     earthAnchor?.detach()
 
-    var staticLatLng = LatLng(51.5403,-0.008771)
-    var staticAltitude = 3.9
+    var staticLatLng = LatLng(51.538121,-0.010014)
+    var staticAltitude = 60.69
 
     // Place the earth anchor at the same altitude as that of the camera to make it easier to view.
     val cameraGeospatialPose = earth.cameraGeospatialPose
@@ -216,8 +216,10 @@ class HelloGeoRenderer(val activity: HelloGeoActivity) :
     val qy = 0f
     val qz = 0f
     val qw = 1f
-    earthAnchor = earth.createAnchor(latLng.latitude, latLng.longitude, altitude, qx, qy, qz, qw)
-    Toast.makeText(activity, "latitude: ${latLng.latitude} longitude:{latLng.longitude} altitude: {$altitude}", Toast.LENGTH_LONG)
+    earthAnchor = earth.createAnchor(51.53806239481324, -0.009928531944751741, 66.37329054716974, qx, qy, qz, qw)
+    activity.runOnUiThread {
+      Toast.makeText(activity, "latitude: ${latLng.latitude} longitude:${latLng.longitude} altitude: {$altitude}", Toast.LENGTH_LONG).show()
+    }
 
     activity.view.mapView?.earthMarker?.apply {
       position = latLng
