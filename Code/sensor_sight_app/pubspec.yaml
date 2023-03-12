@@ -32,15 +32,16 @@ dependencies:
   flutter:
     sdk: flutter
 
-  google_maps_flutter: ^2.2.3
-  geolocator: ^9.0.2
+  google_maps_flutter: 
+  geolocator: 
   permission_handler:
   http:
   json_serializable:
   json_annotation:
   build_runner:
+  cached_network_image: ^3.1.0
 
-  ar_flutter_plugin: ^0.7.3
+  ar_flutter_plugin: 
   arcore_flutter_plugin: 
 
 
