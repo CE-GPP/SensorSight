@@ -17,7 +17,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".HelloGeoActivity">
+    tools:context="com.casa.sensorsight.core.codelabs.hellogeospatial.HelloGeoActivity">
 
   <android.opengl.GLSurfaceView
       android:id="@+id/surfaceview"
@@ -25,7 +25,7 @@
       android:layout_height="fill_parent"
       android:layout_gravity="top" />
 
-  <com.google.ar.core.codelabs.hellogeospatial.helpers.MapTouchWrapper
+  <com.casa.sensorsight.core.codelabs.hellogeospatial.helpers.MapTouchWrapper
       android:id="@+id/map_wrapper"
       android:layout_width="match_parent"
       android:layout_height="300dp"
@@ -36,7 +36,7 @@
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".HelloGeoActivity" />
+        tools:context="com.casa.sensorsight.core.codelabs.hellogeospatial.HelloGeoActivity" />
     <TextView
         android:padding="8dp"
         android:textColor="@android:color/black"
@@ -46,6 +46,6 @@
         android:layout_height="wrap_content"
         android:id="@+id/statusText"
         />
-  </com.google.ar.core.codelabs.hellogeospatial.helpers.MapTouchWrapper>
+  </com.casa.sensorsight.core.codelabs.hellogeospatial.helpers.MapTouchWrapper>
 
 </RelativeLayout>

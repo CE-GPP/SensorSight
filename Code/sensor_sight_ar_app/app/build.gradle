@@ -4,7 +4,7 @@ apply plugin: 'kotlin-android'
 android {
     compileSdkVersion 30
     defaultConfig {
-        applicationId "com.google.ar.core.codelabs.hellogeospatial"
+        applicationId "com.casa.sensorsight.core.codelabs.hellogeospatial"
 
         // AR Optional apps must declare minSdkVersion >= 14.
         // AR Required apps must declare minSdkVersion >= 24.
