@@ -52,7 +52,9 @@ class HelloGeoView(val activity: HelloGeoActivity) : DefaultLifecycleObserver {
     }
 
   val statusText = root.findViewById<TextView>(R.id.statusText)
-  fun updateStatusText(earth: Earth, cameraGeospatialPose: GeospatialPose?) {
+  val statusAccuracy = root.findViewById<TextView>(R.id.statusAccuracy)
+
+    fun updateStatusText(earth: Earth, cameraGeospatialPose: GeospatialPose?) {
     activity.runOnUiThread {
       val poseText = if (cameraGeospatialPose == null) "" else
         activity.getString(R.string.geospatial_pose,
@@ -63,12 +65,18 @@ class HelloGeoView(val activity: HelloGeoActivity) : DefaultLifecycleObserver {
                            cameraGeospatialPose.verticalAccuracy,
                            cameraGeospatialPose.heading,
                            cameraGeospatialPose.headingAccuracy)
-      statusText.text = activity.resources.getString(R.string.earth_state,
+        statusText.text = activity.resources.getString(R.string.earth_state,
                                                      earth.earthState.toString(),
                                                      earth.trackingState.toString(),
                                                      poseText)
+        if (cameraGeospatialPose != null){
+            val accuracy = (cameraGeospatialPose.horizontalAccuracy + cameraGeospatialPose.verticalAccuracy) / 2
+            statusAccuracy.text = activity.resources.getString(R.string.accuracy, accuracy)
+        }
     }
   }
+
+
 
   override fun onResume(owner: LifecycleOwner) {
     surfaceView.onResume()
