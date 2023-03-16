@@ -17,6 +17,7 @@ package com.casa.sensorsight.core.codelabs.hellogeospatial
 
 import android.os.Bundle
 import android.util.Log
+import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.casa.sensorsight.core.codelabs.hellogeospatial.helpers.ARCoreSessionLifecycleHelper
@@ -25,9 +26,11 @@ import com.casa.sensorsight.core.codelabs.hellogeospatial.helpers.HelloGeoView
 import com.casa.sensorsight.core.examples.java.common.helpers.FullScreenHelper
 import com.casa.sensorsight.core.examples.java.common.samplerender.SampleRender
 import com.google.android.gms.maps.MapsInitializer
+import com.google.android.gms.maps.model.LatLng
 import com.google.ar.core.Config
 import com.google.ar.core.Session
 import com.google.ar.core.exceptions.*
+import kotlin.properties.Delegates
 
 class HelloGeoActivity : AppCompatActivity() {
   companion object {
@@ -37,6 +40,8 @@ class HelloGeoActivity : AppCompatActivity() {
   lateinit var arCoreSessionHelper: ARCoreSessionLifecycleHelper
   lateinit var view: HelloGeoView
   lateinit var renderer: HelloGeoRenderer
+  lateinit var cameralatLng: LatLng
+  var manualAltitude by Delegates.notNull<Double>()
 
 
 
@@ -81,7 +86,25 @@ class HelloGeoActivity : AppCompatActivity() {
 
            // Sets up an example renderer using our HelloGeoRenderer.
            SampleRender(view.surfaceView, renderer, assets)
-         }
+    val heightIncreaseButton = findViewById<Button>(R.id.heightIncrease)
+
+    heightIncreaseButton.setOnClickListener {
+            manualAltitude += 0.25
+            renderer.onMapClick(cameralatLng, manualAltitude, false)
+          }
+
+    val heightDecreaseButton = findViewById<Button>(R.id.heightDecrease)
+    heightDecreaseButton.setOnClickListener {
+      manualAltitude -= 0.25
+      renderer.onMapClick(cameralatLng, manualAltitude, false)
+    }
+
+    val showResultButton = findViewById<Button>(R.id.showResult)
+    showResultButton.setOnClickListener {
+      Toast.makeText(this, "latitude: ${cameralatLng.latitude} longitude:${cameralatLng.longitude} altitude: {$manualAltitude}", Toast.LENGTH_LONG).show()
+    }
+
+  }
 
 
   // Configure the session, setting the desired options according to your usecase.
