@@ -20,19 +20,21 @@ import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
+import com.casa.sensorsight.core.examples.java.common.helpers.DisplayRotationHelper
+import com.casa.sensorsight.core.examples.java.common.helpers.TrackingStateHelper
+import com.casa.sensorsight.core.examples.java.common.samplerender.*
+import com.casa.sensorsight.core.examples.java.common.samplerender.arcore.BackgroundRenderer
 import com.google.android.gms.maps.model.LatLng
 import com.google.ar.core.Anchor
 import com.google.ar.core.TrackingState
-import com.casa.sensorsight.core.examples.java.common.helpers.DisplayRotationHelper
-import com.casa.sensorsight.core.examples.java.common.helpers.TrackingStateHelper
-import com.casa.sensorsight.core.examples.java.common.samplerender.Framebuffer
-import com.casa.sensorsight.core.examples.java.common.samplerender.Mesh
-import com.casa.sensorsight.core.examples.java.common.samplerender.SampleRender
-import com.casa.sensorsight.core.examples.java.common.samplerender.Shader
-import com.casa.sensorsight.core.examples.java.common.samplerender.Texture
-import com.casa.sensorsight.core.examples.java.common.samplerender.arcore.BackgroundRenderer
 import com.google.ar.core.exceptions.CameraNotAvailableException
+import com.google.ar.sceneform.AnchorNode
+import com.google.ar.sceneform.Node
+import com.google.ar.sceneform.math.Vector3
+import com.google.ar.sceneform.rendering.*
+import com.google.ar.sceneform.rendering.Texture
 import java.io.IOException
+import java.util.concurrent.ExecutionException
 
 
 class HelloGeoRenderer(val activity: HelloGeoActivity) :
@@ -52,7 +54,7 @@ class HelloGeoRenderer(val activity: HelloGeoActivity) :
   // Virtual object (ARCore pawn)
   lateinit var virtualObjectMesh: Mesh
   lateinit var virtualObjectShader: Shader
-  lateinit var virtualObjectTexture: Texture
+  lateinit var virtualObjectTexture: com.casa.sensorsight.core.examples.java.common.samplerender.Texture
 
   // Temporary matrix allocated here to reduce number of allocations for each frame.
   val modelMatrix = FloatArray(16)
@@ -86,11 +88,11 @@ class HelloGeoRenderer(val activity: HelloGeoActivity) :
 
       // Virtual object to render (Geospatial Marker)
       virtualObjectTexture =
-        Texture.createFromAsset(
+        com.casa.sensorsight.core.examples.java.common.samplerender.Texture.createFromAsset(
           render,
           "models/spatial_marker_baked.png",
-          Texture.WrapMode.CLAMP_TO_EDGE,
-          Texture.ColorFormat.SRGB
+          com.casa.sensorsight.core.examples.java.common.samplerender.Texture.WrapMode.CLAMP_TO_EDGE,
+          com.casa.sensorsight.core.examples.java.common.samplerender.Texture.ColorFormat.SRGB
         )
 
       virtualObjectMesh = Mesh.createFromAsset(render, "models/geospatial_marker.obj");
@@ -199,6 +201,9 @@ class HelloGeoRenderer(val activity: HelloGeoActivity) :
   var earthAnchor: Anchor? = null
 
   fun onMapClick(latLng: LatLng) {
+
+    val anchorsList = ArrayList<AnchorNode>()
+
     val earth = session?.earth ?: return
     if (earth.trackingState != TrackingState.TRACKING) {
       return
@@ -216,7 +221,35 @@ class HelloGeoRenderer(val activity: HelloGeoActivity) :
     val qy = 0f
     val qz = 0f
     val qw = 1f
-    earthAnchor = earth.createAnchor(51.53806239481324, -0.009928531944751741, 66.37329054716974, qx, qy, qz, qw)
+
+    val anchor1 = earth.createAnchor(latLng.latitude-0.0005, latLng.longitude-0.0005, 58.0, qx, qy, qz, qw)
+    val anchor2 = earth.createAnchor(latLng.latitude+0.0005, latLng.longitude-0.0005, 58.0, qx, qy, qz, qw)
+    val anchor3 = earth.createAnchor(latLng.latitude-0.0005, latLng.longitude+0.0005, 58.0, qx, qy, qz, qw)
+    anchorsList.add(AnchorNode(anchor1))
+    anchorsList.add(AnchorNode(anchor2))
+    anchorsList.add(AnchorNode(anchor3))
+
+    if (anchorsList.size == 3) {
+      val sampler: Texture.Sampler = Texture.Sampler.builder()
+        .setMinFilter(Texture.Sampler.MinFilter.LINEAR_MIPMAP_LINEAR)
+        .setMagFilter(Texture.Sampler.MagFilter.LINEAR)
+        .setWrapModeR(Texture.Sampler.WrapMode.REPEAT)
+        .setWrapModeS(Texture.Sampler.WrapMode.REPEAT)
+        .setWrapModeT(Texture.Sampler.WrapMode.REPEAT)
+        .build()
+      Texture.builder()
+        .setSource { activity.assets.open("alexa.png") }
+        .setSampler(sampler)
+        .build()
+        .thenAccept { texture ->
+          MaterialFactory.makeOpaqueWithTexture(activity, texture)
+            .thenAccept { material: Material? ->
+
+            }
+        }
+    }
+
+    earthAnchor = earth.createAnchor(latLng.latitude, latLng.longitude, 58.0, qx, qy, qz, qw)
     activity.runOnUiThread {
       Toast.makeText(activity, "latitude: ${latLng.latitude} longitude:${latLng.longitude} altitude: {$altitude}", Toast.LENGTH_LONG).show()
     }
@@ -239,6 +272,71 @@ class HelloGeoRenderer(val activity: HelloGeoActivity) :
     // Update shader properties and draw
     virtualObjectShader.setMat4("u_ModelViewProjection", modelViewProjectionMatrix)
     draw(virtualObjectMesh, virtualObjectShader, virtualSceneFramebuffer)
+  }
+
+  private fun makeTriangleWithAnchors(anchorNodes: List<AnchorNode>, material: Material): ModelRenderable {
+    check(anchorNodes.size == 3) { "Different count of anchorsList than 3" }
+
+    val p0 = anchorNodes[0].worldPosition
+    val p1 = anchorNodes[1].worldPosition
+    val p2 = anchorNodes[2].worldPosition
+    val up = Vector3.up()
+    val uvTop = Vertex.UvCoordinate(0.5f, 1.0f)
+    val uvBotLeft = Vertex.UvCoordinate(0.0f, 0.0f)
+    val uvBotRight = Vertex.UvCoordinate(1.0f, 0.0f)
+    val vertices = ArrayList(listOf(
+      Vertex
+        .builder()
+        .setPosition(p0)
+        .setNormal(up)
+        .setUvCoordinate(uvTop)
+        .build(),
+      Vertex
+        .builder()
+        .setPosition(p1)
+        .setNormal(up)
+        .setUvCoordinate(uvBotRight)
+        .build(),
+      Vertex
+        .builder()
+        .setPosition(p2)
+        .setNormal(up)
+        .setUvCoordinate(uvBotLeft)
+        .build()
+    ))
+    val triangleIndices = ArrayList<Int>(3)
+    triangleIndices.add(0)
+    triangleIndices.add(2)
+    triangleIndices.add(1)
+    triangleIndices.add(0)
+    triangleIndices.add(1)
+    triangleIndices.add(2)
+    val submesh = RenderableDefinition.Submesh
+      .builder()
+      .setTriangleIndices(triangleIndices)
+      .setMaterial(material)
+      .build()
+
+    val renderableDefinition = RenderableDefinition
+      .builder()
+      .setVertices(vertices)
+      .setSubmeshes(listOf(submesh))
+      .build()
+
+    val future = ModelRenderable
+      .builder()
+      .setSource(renderableDefinition)
+      .build()
+
+    val result: ModelRenderable?
+    result = try {
+      future.get() as ModelRenderable
+    } catch (e: InterruptedException) {
+      throw AssertionError("Error creating renderable.", e)
+    } catch (e: ExecutionException) {
+      throw AssertionError("Error creating renderable.", e)
+    }
+    return result ?: throw AssertionError("Error creating renderable.")
   }
 
   private fun showError(errorMessage: String) =
