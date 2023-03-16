@@ -48,8 +48,11 @@ class MapView(val activity: HelloGeoActivity, val googleMap: GoogleMap) {
       isIndoorLevelPickerEnabled = false
       isZoomControlsEnabled = false
       isTiltGesturesEnabled = false
-      isScrollGesturesEnabled = false
+      isScrollGesturesEnabled = true
+      isCompassEnabled = true
     }
+
+    googleMap.mapType = GoogleMap.MAP_TYPE_SATELLITE
 
     googleMap.setOnMarkerClickListener { unused -> false }
 
