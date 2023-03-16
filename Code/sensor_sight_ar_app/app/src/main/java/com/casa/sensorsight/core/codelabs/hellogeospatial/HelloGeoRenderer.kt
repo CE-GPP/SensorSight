@@ -200,7 +200,8 @@ class HelloGeoRenderer(val activity: HelloGeoActivity) :
 
   var earthAnchor: Anchor? = null
 
-  fun onMapClick(latLng: LatLng) {
+  fun onMapClick(latLng: LatLng, manualAltitude: Double?, isClickedFromMap: Boolean) {
+    activity.cameralatLng = latLng
 
     val anchorsList = ArrayList<AnchorNode>()
 
@@ -210,12 +211,12 @@ class HelloGeoRenderer(val activity: HelloGeoActivity) :
     }
     earthAnchor?.detach()
 
-    var staticLatLng = LatLng(51.538121,-0.010014)
-    var staticAltitude = 60.69
 
     // Place the earth anchor at the same altitude as that of the camera to make it easier to view.
     val cameraGeospatialPose = earth.cameraGeospatialPose
     val altitude = cameraGeospatialPose.altitude - 1
+    if(isClickedFromMap)
+      activity.manualAltitude = altitude
     // The rotation quaternion of the anchor in EUS coordinates.
     val qx = 0f
     val qy = 0f
@@ -244,15 +245,22 @@ class HelloGeoRenderer(val activity: HelloGeoActivity) :
         .thenAccept { texture ->
           MaterialFactory.makeOpaqueWithTexture(activity, texture)
             .thenAccept { material: Material? ->
-
+              val node = Node()
+              //val triangle = makeTriangleWithAnchors(anchorsList, material!!)
+              //node.setParent(activity.getArSceneView().getScene())
+              //node.setRenderable(triangle)
             }
         }
     }
 
-    earthAnchor = earth.createAnchor(latLng.latitude, latLng.longitude, 58.0, qx, qy, qz, qw)
-    activity.runOnUiThread {
-      Toast.makeText(activity, "latitude: ${latLng.latitude} longitude:${latLng.longitude} altitude: {$altitude}", Toast.LENGTH_LONG).show()
+    if(manualAltitude!= null){
+      earthAnchor = earth.createAnchor(latLng.latitude, latLng.longitude, manualAltitude, qx, qy, qz, qw)
+    } else {
+      earthAnchor = earth.createAnchor(latLng.latitude, latLng.longitude, altitude, qx, qy, qz, qw)
     }
+   // activity.runOnUiThread {
+     // Toast.makeText(activity, "latitude: ${latLng.latitude} longitude:${latLng.longitude} altitude: {$altitude}", Toast.LENGTH_LONG).show()
+    //}
 
     activity.view.mapView?.earthMarker?.apply {
       position = latLng

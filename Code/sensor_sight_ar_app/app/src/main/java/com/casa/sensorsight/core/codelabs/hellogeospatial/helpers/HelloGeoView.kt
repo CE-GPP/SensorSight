@@ -17,7 +17,9 @@ package com.casa.sensorsight.core.codelabs.hellogeospatial.helpers
 
 import android.opengl.GLSurfaceView
 import android.view.View
+import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import com.google.android.gms.maps.SupportMapFragment
@@ -27,6 +29,12 @@ import com.google.ar.core.GeospatialPose
 import com.casa.sensorsight.core.codelabs.hellogeospatial.HelloGeoActivity
 import com.casa.sensorsight.core.codelabs.hellogeospatial.R
 import com.casa.sensorsight.core.examples.java.common.helpers.SnackbarHelper
+import com.google.ar.core.TrackingState
+import com.google.ar.sceneform.AnchorNode
+import com.google.ar.sceneform.Node
+import com.google.ar.sceneform.rendering.Material
+import com.google.ar.sceneform.rendering.MaterialFactory
+import com.google.ar.sceneform.rendering.Texture
 
 /** Contains UI elements for Hello Geo. */
 class HelloGeoView(val activity: HelloGeoActivity) : DefaultLifecycleObserver {
@@ -43,7 +51,7 @@ class HelloGeoView(val activity: HelloGeoActivity) : DefaultLifecycleObserver {
     setup { screenLocation ->
       val latLng: LatLng =
         mapView?.googleMap?.projection?.fromScreenLocation(screenLocation) ?: return@setup
-      activity.renderer.onMapClick(latLng)
+      activity.renderer.onMapClick(latLng, null, true)
     }
   }
   val mapFragment =
