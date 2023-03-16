@@ -34,13 +34,13 @@ import com.casa.sensorsight.core.codelabs.hellogeospatial.R
 
 class MapView(val activity: HelloGeoActivity, val googleMap: GoogleMap) {
   private val CAMERA_MARKER_COLOR: Int = Color.argb(255, 0, 255, 0)
-  private val EARTH_MARKER_COLOR: Int = Color.argb(255, 125, 125, 125)
+  private val EARTH_MARKER_COLOR: Int = Color.argb(255, 255, 0, 0)
 
   var setInitialCameraPosition = false
-  val cameraMarker = createMarker(CAMERA_MARKER_COLOR)
+  val cameraMarker = createMarker(CAMERA_MARKER_COLOR, false)
   var cameraIdle = true
 
-  val earthMarker = createMarker(EARTH_MARKER_COLOR)
+  val earthMarker = createMarker(EARTH_MARKER_COLOR, true)
 
   init {
     googleMap.uiSettings.apply {
@@ -89,27 +89,53 @@ class MapView(val activity: HelloGeoActivity, val googleMap: GoogleMap) {
 
   /** Creates and adds a 2D anchor marker on the 2D map view.  */
   private fun createMarker(
-    color: Int,
+    color: Int, isCameraMarker: Boolean
   ): Marker {
-    val markersOptions = MarkerOptions()
-      .position(LatLng(0.0,0.0))
-      .draggable(false)
-      .anchor(0.5f, 0.5f)
-      .flat(true)
-      .visible(false)
-      .icon(BitmapDescriptorFactory.fromBitmap(createColoredMarkerBitmap(color)))
-    return googleMap.addMarker(markersOptions)!!
+    if(isCameraMarker){
+      val markersOptions = MarkerOptions()
+        .position(LatLng(0.0,0.0))
+        .draggable(true)
+        .anchor(0.5f, 0.5f)
+        .flat(true)
+        .visible(false)
+        .icon(BitmapDescriptorFactory.fromBitmap(createColoredMarkerBitmap(color, true)))
+      return googleMap.addMarker(markersOptions)!!
+    }
+    else {
+      val markersOptions = MarkerOptions()
+        .position(LatLng(0.0,0.0))
+        .draggable(true)
+        .anchor(0.5f, 0.5f)
+        .flat(true)
+        .visible(false)
+        .icon(BitmapDescriptorFactory.fromBitmap(createColoredMarkerBitmap(color, false)))
+      return googleMap.addMarker(markersOptions)!!
+    }
   }
 
-  private fun createColoredMarkerBitmap(@ColorInt color: Int): Bitmap {
+  private fun createColoredMarkerBitmap(@ColorInt color: Int, isCamera: Boolean): Bitmap {
     val opt = BitmapFactory.Options()
+    opt.outHeight = 50
+    opt.outWidth = 50
     opt.inMutable = true
-    val navigationIcon =
-      BitmapFactory.decodeResource(activity.resources, R.drawable.ic_navigation_white_48dp, opt)
-    val p = Paint()
-    p.colorFilter = LightingColorFilter(color,  /* add= */1)
-    val canvas = Canvas(navigationIcon)
-    canvas.drawBitmap(navigationIcon,  /* left= */0f,  /* top= */0f, p)
-    return navigationIcon
+    if(isCamera){
+      val navigationIcon =
+        BitmapFactory.decodeResource(activity.resources, R.drawable.ic_launcher, opt)
+      val p = Paint()
+      p.colorFilter = LightingColorFilter(color,  /* add= */1)
+      val scaled = Bitmap.createScaledBitmap(navigationIcon, navigationIcon.width/5, navigationIcon.height/5, false);
+      val canvas = Canvas(scaled)
+      canvas.drawBitmap(scaled,  /* left= */0f,  /* top= */0f, p)
+      return scaled
+    } else {
+      val navigationIcon =
+        BitmapFactory.decodeResource(activity.resources, R.drawable.ic_navigation_white_48dp, opt)
+      val p = Paint()
+      p.colorFilter = LightingColorFilter(color,  /* add= */1)
+      val canvas = Canvas(navigationIcon)
+      canvas.drawBitmap(navigationIcon,  /* left= */0f,  /* top= */0f, p)
+      return navigationIcon
+    }
+
   }
 }
