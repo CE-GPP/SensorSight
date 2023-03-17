@@ -4,13 +4,13 @@ export default class camerasController {
   constructor() {
   }
 
-      var con = mysql.createConnection({
-        host: "host",
-        user: "",
-        password: "",
-        database: ""
   async getAll(req, res) {
     try {
+      var connection = mysql.createConnection({
+        host: "----",
+        user: "---",
+        password: "---",
+        database: "---"
       });
 
       connection.connect();
