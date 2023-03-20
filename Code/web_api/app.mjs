@@ -19,6 +19,7 @@ app.use((req, res, next) => {
 
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use("/", baseRouter);
+app.use(express.static('public'))
 
 const port = process.env.PORT || 4000;
 app.listen(port, () => console.log("Server is running on port: " + port));
