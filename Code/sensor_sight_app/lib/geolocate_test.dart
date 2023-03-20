@@ -20,12 +20,12 @@ class _GeoPageState extends State<GeoPage> {
 
   // on below line we have created the list of markers
   final List<Marker> _markers = <Marker>[
-    Marker(
-        markerId: MarkerId('1'),
-        position: LatLng(20.42796133580664, 75.885749655962),
-        infoWindow: InfoWindow(
-          title: 'My Position',
-        )),
+    // const Marker(
+    //     markerId: MarkerId('1'),
+    //     position: LatLng(20.42796133580664, 75.885749655962),
+    //     infoWindow: InfoWindow(
+    //       title: 'My Position',
+    //     )),
   ];
 
   // created method for getting user current location
@@ -42,25 +42,23 @@ class _GeoPageState extends State<GeoPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        child: SafeArea(
-          // on below line creating google maps
-          child: GoogleMap(
-            // on below line setting camera position
-            initialCameraPosition: _kGoogle,
-            // on below line we are setting markers on the map
-            markers: Set<Marker>.of(_markers),
-            // on below line specifying map type.
-            mapType: MapType.normal,
-            // on below line setting user location enabled.
-            myLocationEnabled: true,
-            // on below line setting compass enabled.
-            compassEnabled: true,
-            // on below line specifying controller on map complete.
-            onMapCreated: (GoogleMapController controller) {
-              _controller.complete(controller);
-            },
-          ),
+      body: SafeArea(
+        // on below line creating google maps
+        child: GoogleMap(
+          // on below line setting camera position
+          initialCameraPosition: _kGoogle,
+          // on below line we are setting markers on the map
+          markers: Set<Marker>.of(_markers),
+          // on below line specifying map type.
+          mapType: MapType.satellite,
+          // on below line setting user location enabled.
+          myLocationEnabled: true,
+          // on below line setting compass enabled.
+          compassEnabled: true,
+          // on below line specifying controller on map complete.
+          onMapCreated: (GoogleMapController controller) {
+            _controller.complete(controller);
+          },
         ),
       ),
       // on pressing floating action button the camera will take to user current location
@@ -90,7 +88,7 @@ class _GeoPageState extends State<GeoPage> {
             setState(() {});
           });
         },
-        child: Icon(Icons.local_activity),
+        child: Icon(Icons.location_searching_outlined),
       ),
     );
   }

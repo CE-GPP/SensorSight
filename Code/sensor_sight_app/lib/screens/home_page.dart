@@ -23,7 +23,7 @@ class _HomePage extends State<HomePage> {
     // Index 1: Device List
     DeviceList(),
     // Index 2: AR Mode
-    GeoPage(),
+    Placeholder(),
   ];
 
   void _onItemTapped(int index) {
