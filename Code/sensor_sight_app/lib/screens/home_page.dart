@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-
-import 'package:sensor_sight_app/geolocate_test.dart';
+import 'dart:convert';
+import 'package:flutter/services.dart';
 import 'package:sensor_sight_app/screens/device_list.dart';
-//import 'package:sensor_sight_app/screens/map_view.dart';
 import 'package:sensor_sight_app/widgets/app_info.dart';
 
 import 'map_view_updated.dart';
