@@ -2,48 +2,8 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
-import 'device_details.dart';
-
-class Camera {
-  final int id;
-  final String name;
-  //final double lon;
-  //final double lat;
-  //final int elevation;
-  final String manufacturer;
-  final String series;
-  final String resolution;
-  //final String feed_link;
-  //final String image_link;
-
-  const Camera({
-    required this.id,
-    required this.name,
-    //required this.lon,
-    //required this.lat,
-    //required this.elevation,
-    required this.manufacturer,
-    required this.series,
-    required this.resolution,
-    //required this.feed_link,
-    //required this.image_link,
-  });
-
-  factory Camera.fromJson(Map<String, dynamic> json) {
-    return Camera(
-      id: json['id'],
-      name: json['name'] ?? '',
-      //lon: json['lon'] ?? '',
-      //lat: json['lat'] ?? '',
-      //elevation: json['elevation'] ?? '',
-      manufacturer: json['manufacturer'] ?? '',
-      series: json['series'] ?? '',
-      resolution: json['resolution'] ?? '',
-      //feed_link: json['feed_link'] ?? '',
-      //image_link: json['image_link'] ?? '',
-    );
-  }
-}
+import 'package:sensor_sight_app/screens/device_details.dart';
+import 'package:sensor_sight_app/widgets/camera_json.dart';
 
 class DeviceList extends StatefulWidget {
   const DeviceList({Key? key}) : super(key: key);
@@ -108,10 +68,9 @@ class _DeviceListState extends State<DeviceList> {
                     child: Padding(
                       padding: const EdgeInsets.fromLTRB(0, 5, 0, 5),
                       child: ListTile(
-                        leading: const CircleAvatar(
+                        leading: CircleAvatar(
                             backgroundImage: NetworkImage(
-                              'http://via.placeholder.com/150x150',
-                            ),
+                                'https://sensorsight-api.yaman-ka.com/images/${_cameras[index].imageLink}'),
                             radius: 30.0),
                         title: Text(_cameras[index].name,
                             style: const TextStyle(

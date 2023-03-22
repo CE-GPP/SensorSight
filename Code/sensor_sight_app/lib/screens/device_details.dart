@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:sensor_sight_app/screens/device_list.dart';
 import 'package:sensor_sight_app/widgets/app_info.dart';
+import 'package:sensor_sight_app/widgets/camera_json.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class DeviceDetails extends StatelessWidget {
   final Camera camera;
@@ -8,8 +9,8 @@ class DeviceDetails extends StatelessWidget {
   const DeviceDetails({Key? key, required this.camera}) : super(key: key);
 
   static const TextStyle optionStyle = TextStyle(
-    fontSize: 16,
-    fontWeight: FontWeight.normal,
+    fontSize: 18,
+    fontWeight: FontWeight.bold,
     wordSpacing: 8,
   );
 
@@ -62,58 +63,76 @@ class DeviceDetails extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Padding(
-                  padding: const EdgeInsets.all(15),
+                  padding: EdgeInsets.fromLTRB(0, 25, 0, 15),
                   child: CircleAvatar(
                     backgroundImage: NetworkImage(
-                        'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png'),
-                    radius: 65,
+                        'https://sensorsight-api.yaman-ka.com/images/${camera.imageLink}'),
+                    radius: 80,
                   ),
                 ),
               ],
             ),
-            SizedBox(
-              height: 75,
-              child: Card(
-                color: Colors.blueGrey[50],
-                child: Center(
-                  child: Text(
-                    camera.name,
-                    style: const TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
+            Padding(
+              padding: const EdgeInsets.fromLTRB(0, 5, 0, 5),
+              child: SizedBox(
+                height: 75,
+                child: Card(
+                  color: Colors.blueGrey[50],
+                  child: Center(
+                    child: Text(
+                      camera.name,
+                      style: const TextStyle(
+                        fontSize: 28,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
                 ),
               ),
             ),
-            Container(
-                height: 350,
-                child: Card(
-                  color: Colors.blueGrey[50],
-                  child: Padding(
-                    padding: const EdgeInsets.all(25.0),
-                    child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Text(
-                            'Device: ${camera.name}',
-                            style: optionStyle,
+            SizedBox(
+              height: 350,
+              child: Card(
+                color: Colors.blueGrey[50],
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Text(
+                        'Manufacturer: ${camera.manufacturer}',
+                        style: optionStyle,
+                      ),
+                      Text(
+                        'Series: ${camera.series}',
+                        style: optionStyle,
+                      ),
+                      Text(
+                        'Resolution: ${camera.resolution}',
+                        style: optionStyle,
+                      ),
+                      Text(
+                        'Coordinates: ${camera.lon}, ${camera.lat}',
+                        style: optionStyle,
+                      ),
+                      ElevatedButton(
+                        onPressed: () => launch(camera.feedLink),
+                        child: const Padding(
+                          padding: EdgeInsets.fromLTRB(8, 10, 8, 10),
+                          child: Text(
+                            'Feed Link',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 16,
+                            ),
                           ),
-                          Text(
-                            'Manufacturer: ${camera.manufacturer}',
-                            style: optionStyle,
-                          ),
-                          Text(
-                            'Series: ${camera.series}',
-                            style: optionStyle,
-                          ),
-                          Text(
-                            'Resolution: ${camera.resolution}',
-                            style: optionStyle,
-                          ),
-                        ]),
+                        ),
+                      ),
+                    ],
                   ),
-                ))
+                ),
+              ),
+            )
           ],
         ),
       ),
