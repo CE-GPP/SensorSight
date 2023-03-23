@@ -1,43 +1,4 @@
-import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-
-class MapPage extends StatefulWidget {
-  const MapPage({Key? key}) : super(key: key);
-
-  @override
-  _MapPageState createState() => _MapPageState();
-}
-
-class _MapPageState extends State<MapPage> {
-  late GoogleMapController mapController;
-
-  final Set<Marker> _markers = {};
-  final Set<Polygon> _polygons = {};
-
-  @override
-  void initState() {
-    super.initState();
-
-    _markers.addAll(_getMarkers());
-    _polygons.addAll(getPolygons());
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: GoogleMap(
-        mapType: MapType.satellite,
-        myLocationEnabled: true,
-        initialCameraPosition: const CameraPosition(
-          target: LatLng(51.539881330539366, -0.010170620253578566),
-          zoom: 16.7,
-        ),
-        markers: _markers,
-        polygons: _polygons,
-      ),
-    );
-  }
-}
 
 List<Marker> _getMarkers() {
   return [
@@ -234,48 +195,4 @@ List<Marker> _getMarkers() {
       ),
     ),
   ];
-}
-
-List<Polygon> getPolygons() {
-  List<LatLng> cameraRange1 = [
-    LatLng(51.5403, -0.008771),
-    LatLng(51.5493, 0.008721),
-    LatLng(51.5493, -0.008729),
-  ];
-
-  List<LatLng> cameraRange2 = [
-    LatLng(51.5403, -0.008771),
-    LatLng(51.5493, 0.008721),
-    LatLng(51.5493, -0.008729),
-  ];
-
-  List<Polygon> polygons = [
-    Polygon(
-      // given polygonId
-      polygonId: const PolygonId('1'),
-      // initialize the list of points to display polygon
-      points: cameraRange1,
-      // given color to polygon
-      fillColor: Color.fromARGB(255, 245, 192, 17).withOpacity(0.3),
-      // given border color to polygon
-      strokeColor: Color.fromARGB(255, 255, 251, 0),
-      geodesic: true,
-      // given width of border
-      strokeWidth: 4,
-    ),
-    Polygon(
-      // given polygonId
-      polygonId: const PolygonId('2'),
-      // initialize the list of points to display polygon
-      points: cameraRange2,
-      // given color to polygon
-      fillColor: Color.fromARGB(255, 212, 121, 17).withOpacity(0.3),
-      // given border color to polygon
-      strokeColor: Color.fromARGB(255, 253, 6, 6),
-      geodesic: true,
-      // given width of border
-      strokeWidth: 4,
-    ),
-  ];
-  return polygons;
 }
