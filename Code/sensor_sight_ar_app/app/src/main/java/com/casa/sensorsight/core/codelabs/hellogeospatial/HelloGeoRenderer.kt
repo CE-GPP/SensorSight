@@ -94,8 +94,7 @@ class HelloGeoRenderer(val activity: HelloGeoActivity) :
           com.casa.sensorsight.core.examples.java.common.samplerender.Texture.WrapMode.CLAMP_TO_EDGE,
           com.casa.sensorsight.core.examples.java.common.samplerender.Texture.ColorFormat.SRGB
         )
-
-      virtualObjectMesh = Mesh.createFromAsset(render, "models/geospatial_marker.obj");
+      virtualObjectMesh = Mesh.createFromAsset(render, "models/geospatial_marker.obj")
       virtualObjectShader =
         Shader.createFromAssets(
           render,
