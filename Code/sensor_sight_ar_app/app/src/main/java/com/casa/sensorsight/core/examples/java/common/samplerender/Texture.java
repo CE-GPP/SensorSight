@@ -24,6 +24,8 @@ import java.io.Closeable;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 
+import javax.microedition.khronos.opengles.GL10;
+
 /** A GPU-side texture. */
 public class Texture implements Closeable {
   private static final String TAG = Texture.class.getSimpleName();
@@ -143,6 +145,7 @@ public class Texture implements Closeable {
       buffer.rewind();
 
       GLES30.glBindTexture(GLES30.GL_TEXTURE_2D, texture.getTextureId());
+      GLES30.glBlendFunc(GL10.GL_SRC_ALPHA, GL10.GL_ONE);
       GLError.maybeThrowGLException("Failed to bind texture", "glBindTexture");
       GLES30.glTexImage2D(
           GLES30.GL_TEXTURE_2D,

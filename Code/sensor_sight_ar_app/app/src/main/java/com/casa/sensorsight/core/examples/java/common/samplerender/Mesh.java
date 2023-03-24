@@ -27,6 +27,8 @@ import java.io.InputStream;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 
+import javax.microedition.khronos.opengles.GL10;
+
 /**
  * A collection of vertices, faces, and other attributes that define how to render a 3D object.
  *
@@ -104,6 +106,7 @@ public class Mesh implements Closeable {
 
       for (int i = 0; i < vertexBuffers.length; ++i) {
         // Bind each vertex buffer to vertex array
+        GLES30.glBlendFunc(GL10.GL_SRC_ALPHA, GL10.GL_ONE_MINUS_SRC_ALPHA);
         GLES30.glBindBuffer(GLES30.GL_ARRAY_BUFFER, vertexBuffers[i].getBufferId());
         GLError.maybeThrowGLException("Failed to bind vertex buffer", "glBindBuffer");
         GLES30.glVertexAttribPointer(
@@ -166,7 +169,7 @@ public class Mesh implements Closeable {
     if (vertexArrayId[0] == 0) {
       throw new IllegalStateException("Tried to draw a freed Mesh");
     }
-
+    GLES30.glBlendFunc(GL10.GL_SRC_ALPHA, GL10.GL_ONE);
     GLES30.glBindVertexArray(vertexArrayId[0]);
     GLError.maybeThrowGLException("Failed to bind vertex array object", "glBindVertexArray");
     if (indexBuffer == null) {
