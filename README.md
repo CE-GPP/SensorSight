@@ -1,6 +1,6 @@
 # SensorSight
 
-Title Image
+![Title Image](/Docs/SensorSight_TitleImage.png)
 
 ## Abstract 
 This project focused on designing and implementing a mobile application that helps Local Boroughs/Local Planning Authorities and private land-owners in London to visualise CCTV camera coverages in a specific area. Coverage visulisation helps in determining security risks and blind spots using Augmented Reality technology.
