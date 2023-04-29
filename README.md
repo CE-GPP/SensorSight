@@ -12,34 +12,32 @@ The application has been tested in the Olympic Park throughout several experimen
 ### Overview 
 The application is mainly composed of 2 applications and an API (Figure 1). The API is responsible for storing camera coordinates and information, then to send them over HTTP to the Flutter app. Flutter application visualises camera data and vision field on a 2D map, in addition giving the possibility to the user to browse the full list of cameras available. Flutter app sends the selected camera’s spatial coordinates to Kotlin app to be visualised via Augmented Reality. Both applications use GPS to determine user’s location, but the Kotlin application is capable of incorporating it with live camera feed in ARCore to visualise camera fields in 3D space.
 
-Figure 1.
+![Title Image](/Docs/overview-diagram.jpg)
 
 ### System Architecture
 
 Figure 2 shows a more detailed version of application components. The API is mainly composed of two parts; an Express.Js (Express.Js, 2023) application and an MySQL database instance (Mysql, 2023). Those two parts connect to each other to form the API.
 The API, in turn, responds to user requests via HTTP RESTful connection. The Flutter app is able to parse the incoming JSON data and display it to the user accordingly. 
 
-Figure 2.
+![Title Image](/Docs/Application-infrastructure-1.jpg)
 
 The entire API is hosted on a private server and served using Docker containerisation. Figure 3 shows the designed server infrastructure. Docker Compose (Docker Compose, 2023) was used to combine MySQL and Node.Js instances into one container. Then, a Reverse Proxy (Nginx, 2023) is used to tunnel the requests in and out the server. Lastly, Cloudflare (Cloudlfare, 2023) was used to add a second layer of protection and performance adjustment.
 
-Figure 3.
+### ![Title Image](/Docs/Application-infrastructure-2.jpg)Backend API 
 
-### Backend API 
+Figure 4 zooms in to uncover the inner components of the Express.Js application. Cameras Controller is responsible for communicating with MySQL database and query the data according to user’s needs. The Router organises the communication in separate endpoints applying the RESTful JSON API principles (JSON:API, 2023). Swagger library (Swagger, 2023) is used to document the API which helps developers during the development phase. 
 
-Figure 4 zooms in to uncover the inner components of the Express.Js application. Cameras Controller is responsible for communicating with MySQL database and query the data according to user’s needs. The Router organises the communication in separate endpoints applying the RESTful JSON API principles (JSON:API, 2023). Swagger library (Swagger, 2023) is used to document the API which helps developers during the development phase. Figure 4 shows the Swagger UI as it appears on browser.
+![Title Image](/Docs/Application-infrastructure-3.jpg)
 
-Figure 4.
 
-Figure 5.
 
 MySQL database is designed to include only one table with 15 columns describing cameras' details. Because the visualisation is made in 3D space, coordinates had to be defined using a tuple of longitude, latitude, and altitude. As figure 5 exhibits, camera_coordinates and column_base_coordinates define camera coordinates and its column. vision_field_1,vision_field_2, vision_field_3, and vision_field_4 define the vision field for each camera. 
 
 JSON was used to store the previous tuples in MySQL database as shown in figure 7.
 
-Figure 6.
+![Title Image](/Docs/Camera-spatial-field.png)
 
-Figure 7.
+![Title Image](/Docs/mysqlDB.png)
 
 ### Flutter app 
 
@@ -57,7 +55,7 @@ The next tab provided from the home screen displayed a dynamically generated lis
 
 When a camera card is tapped, it generates a profile page listing important information such as manufacturer, series number, and resolution (Figure 12). A feed link is provided to view current conditions coming from that device, but for the sake of the MVP, placeholder TFL feeds were substituted (Figure 13). 
 
-   
+
 Figure 11.			Figure 12.			Figure 13.
 
 ### Kotlin app 
