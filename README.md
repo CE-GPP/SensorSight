@@ -12,7 +12,9 @@ The application has been tested in the Olympic Park throughout several experimen
 ### Overview 
 The application is mainly composed of 2 applications and an API (Figure 1). The API is responsible for storing camera coordinates and information, then to send them over HTTP to the Flutter app. Flutter application visualises camera data and vision field on a 2D map, in addition giving the possibility to the user to browse the full list of cameras available. Flutter app sends the selected camera’s spatial coordinates to Kotlin app to be visualised via Augmented Reality. Both applications use GPS to determine user’s location, but the Kotlin application is capable of incorporating it with live camera feed in ARCore to visualise camera fields in 3D space.
 
-![Title Image](/Docs/overview-diagram.jpg)
+<img src="/Docs/overview-diagram.jpg" width="500">
+
+
 
 ### System Architecture
 
