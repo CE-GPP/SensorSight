@@ -1,18 +1,24 @@
 # SensorSight
 
+**A mobile app that visualises camera vision fields using AR technology!**
+
 ![Title Image](/Docs/SensorSight_TitleImage.png)
 
-## Abstract 
-This project focused on designing and implementing a mobile application that helps Local Boroughs/Local Planning Authorities and private land-owners in London to visualise CCTV camera coverages in a specific area. Coverage visulisation helps in determining security risks and blind spots using Augmented Reality technology.
-The application was mainly built using Flutter and Kotlin with AR functionality, and NodeJS was selected to for the API with MySQL database as the storage. 
-The application has been tested in the Olympic Park throughout several experiments and returned with preliminary results and valued lessons learnt.
+![Title Image](/Docs/demo1.jpg)
 
-## Application 
+![Title Image](/Docs/demo2.jpg)
+
+## A brief...
+
+This project focuses on designing and implementing a mobile application that helps Local Boroughs/Local Planning Authorities and private land-owners in London to visualise CCTV camera coverages in a specific area. Coverage visulisation helps in determining security risks and blind spots using Augmented Reality technology. The application was mainly built using Flutter and Kotlin with AR functionality, and NodeJS was selected to for the API with MySQL database as the storage. 
+The application has been tested in the Olympic Park, London throughout several experiments and returned with preliminary results and valued lessons learnt.
+
+## Application design
 
 ### Overview 
 The application is mainly composed of 2 applications and an API (Figure 1). The API is responsible for storing camera coordinates and information, then to send them over HTTP to the Flutter app. Flutter application visualises camera data and vision field on a 2D map, in addition giving the possibility to the user to browse the full list of cameras available. Flutter app sends the selected camera’s spatial coordinates to Kotlin app to be visualised via Augmented Reality. Both applications use GPS to determine user’s location, but the Kotlin application is capable of incorporating it with live camera feed in ARCore to visualise camera fields in 3D space.
 
-<img src="/Docs/overview-diagram.jpg" width="500">
+<img src="/Docs/overview-diagram.jpg" width="400">
 
 
 
@@ -21,15 +27,17 @@ The application is mainly composed of 2 applications and an API (Figure 1). The 
 Figure 2 shows a more detailed version of application components. The API is mainly composed of two parts; an Express.Js (Express.Js, 2023) application and an MySQL database instance (Mysql, 2023). Those two parts connect to each other to form the API.
 The API, in turn, responds to user requests via HTTP RESTful connection. The Flutter app is able to parse the incoming JSON data and display it to the user accordingly. 
 
-![Title Image](/Docs/Application-infrastructure-1.jpg)
+<img src="/Docs/Application-infrastructure-1.jpg" width="300">
 
 The entire API is hosted on a private server and served using Docker containerisation. Figure 3 shows the designed server infrastructure. Docker Compose (Docker Compose, 2023) was used to combine MySQL and Node.Js instances into one container. Then, a Reverse Proxy (Nginx, 2023) is used to tunnel the requests in and out the server. Lastly, Cloudflare (Cloudlfare, 2023) was used to add a second layer of protection and performance adjustment.
 
-### ![Title Image](/Docs/Application-infrastructure-2.jpg)Backend API 
+<img src="/Docs/Application-infrastructure-2.jpg" width="300">
+
+### Backend API 
 
 Figure 4 zooms in to uncover the inner components of the Express.Js application. Cameras Controller is responsible for communicating with MySQL database and query the data according to user’s needs. The Router organises the communication in separate endpoints applying the RESTful JSON API principles (JSON:API, 2023). Swagger library (Swagger, 2023) is used to document the API which helps developers during the development phase. 
 
-![Title Image](/Docs/Application-infrastructure-3.jpg)
+<img src="/Docs/Application-infrastructure-3.jpg" width="300">
 
 
 
@@ -37,9 +45,9 @@ MySQL database is designed to include only one table with 15 columns describing 
 
 JSON was used to store the previous tuples in MySQL database as shown in figure 7.
 
-![Title Image](/Docs/Camera-spatial-field.png)
+<img src="/Docs/Camera-spatial-field.png" width="700">
 
-![Title Image](/Docs/mysqlDB.png)
+<img src="/Docs/mysqlDB.png" width="400">
 
 ### Flutter app 
 
